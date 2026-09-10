@@ -23,7 +23,7 @@ export async function authenticate(context: BrowserContext) {
       name: "jobtrack-demo",
       value: "1",
       domain: "127.0.0.1",
-      path: "/dashboard",
+      path: "/",
       httpOnly: true,
       sameSite: "Lax",
       secure: false,
