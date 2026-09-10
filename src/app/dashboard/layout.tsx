@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { cookies } from "next/headers";
 import { ApplicationsProvider } from "@/components/applications/applications-provider";
 import { DashboardShell } from "@/components/dashboard/dashboard-shell";
@@ -13,7 +14,9 @@ const demoProfile: DashboardProfile = {
 
 export default async function DashboardLayout({
   children,
-}: LayoutProps<"/dashboard">) {
+}: {
+  readonly children: ReactNode;
+}) {
   const cookieStore = await cookies();
   const mode =
     cookieStore.get("jobtrack-demo")?.value === "1" ? "demo" : "authenticated";
