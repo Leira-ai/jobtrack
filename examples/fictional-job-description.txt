@@ -1,0 +1,36 @@
+FRONTEND ENGINEER
+Northstar Paperworks (fictional)
+Bandung, Indonesia | Hybrid | Full-time
+
+ABOUT THE ROLE
+Northstar Paperworks is a fictional document software company. We are looking
+for a frontend engineer to build clear, accessible workflows for people who
+organize and review private documents.
+
+RESPONSIBILITIES
+- Build and maintain product interfaces with React, TypeScript, and Next.js.
+- Collaborate with product design and backend engineering on API contracts.
+- Write unit and browser tests for important workflows.
+- Improve accessibility, performance, and observability.
+- Participate in code reviews and incremental architecture decisions.
+
+REQUIREMENTS
+- Professional experience delivering modern web applications.
+- Strong TypeScript, semantic HTML, and responsive CSS skills.
+- Familiarity with authentication, relational data, and API error handling.
+- Ability to explain trade-offs and work effectively with a small team.
+- Working knowledge of WCAG and automated testing practices.
+
+NICE TO HAVE
+- Experience with Next.js App Router, PostgreSQL, or Supabase.
+- Experience handling private file uploads and signed download URLs.
+- Familiarity with internationalized products.
+
+INTERVIEW PROCESS
+1. Introductory conversation with a fictional recruiter.
+2. Practical TypeScript and accessibility discussion.
+3. Collaborative system-design conversation.
+4. Final conversation with the fictional product team.
+
+Northstar Paperworks, this vacancy, all contacts, and all details are fictional.
+This document exists only as safe sample data for demonstrations and tests.

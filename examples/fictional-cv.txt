@@ -1,0 +1,35 @@
+RANI PRATAMA
+Fictional Frontend Engineer
+Bandung, Indonesia | rani.pratama@example.com | +62 800 0000 0000
+Portfolio: https://example.com/rani-pratama
+
+SUMMARY
+Frontend engineer with four years of fictional experience building accessible,
+data-informed web products. Comfortable with TypeScript, React, automated
+testing, design systems, and collaborating with product and backend teams.
+
+EXPERIENCE
+Frontend Engineer, Aurora Finch Labs (fictional)             2023 - Present
+- Built reusable React and TypeScript form components for a document workflow.
+- Improved keyboard navigation and screen-reader labels across core journeys.
+- Added unit and browser tests for high-value user flows.
+- Partnered with designers to document responsive component behavior.
+
+Software Engineer, Kencana Pixel Works (fictional)              2021 - 2023
+- Shipped customer dashboards backed by REST APIs.
+- Introduced typed API models and reduced avoidable runtime validation errors.
+- Reviewed pull requests and mentored two fictional interns.
+
+PROJECTS
+Open Roles Organizer (fictional)
+- Prototyped a private job-search tracker using Next.js and PostgreSQL.
+- Designed a status history model and per-user document permissions.
+
+SKILLS
+TypeScript, JavaScript, React, Next.js, HTML, CSS, PostgreSQL, Git,
+Vitest, Playwright, accessibility testing, technical writing
+
+EDUCATION
+B.Sc. in Information Systems, Nusantara Example University      2017 - 2021
+
+This document is entirely fictional and intended only for demos and tests.

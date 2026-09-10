@@ -10,9 +10,18 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
+# testing and generated artifacts
 /coverage
+/playwright-report
+/test-results
+/artifacts/
+/screenshots/
+/next-build.tar
 
+# local agent state
+/.zcode/
+
+# eslint ignores
 # next.js
 /.next/
 /out/
@@ -30,8 +39,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# environment files; keep the documented template in version control
 .env*
+!.env.example
 
 # vercel
 .vercel
