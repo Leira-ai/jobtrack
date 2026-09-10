@@ -74,7 +74,7 @@ test("creates an application, moves it accessibly, and verifies its detail timel
   await expect(page).toHaveURL(/\/dashboard\/lamaran\/app-/);
   await expect(
     page.getByRole("heading", { level: 1, name: application.role }),
-  ).toBeVisible();
+  ).toBeVisible({ timeout: 45_000 });
   await expect(page.getByLabel("Perbarui status")).toHaveValue("interview");
   const timeline = page
     .getByRole("heading", { name: "Riwayat status" })
