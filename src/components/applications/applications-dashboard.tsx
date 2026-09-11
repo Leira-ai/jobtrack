@@ -1,6 +1,12 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import {
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  type ChangeEvent,
+} from "react";
 import {
   Archive,
   BriefcaseBusiness,
@@ -58,6 +64,7 @@ export function ApplicationsDashboard() {
   const [showArchived, setShowArchived] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState<JobApplication | undefined>();
+  const importRef = useRef<HTMLInputElement>(null);
 
   const visibleApplications = useMemo(() => {
     const query = search.trim().toLocaleLowerCase();
@@ -143,6 +150,74 @@ export function ApplicationsDashboard() {
     }
   };
 
+  const importCsv = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("CSV terlalu besar. Maksimal 2 MiB.");
+      return;
+    }
+    const text = await file.text();
+    const lines = text.split(/\r?\n/u).filter((line) => line.trim());
+    if (lines.length < 2) {
+      toast.error("CSV harus memiliki header dan minimal satu baris data.");
+      return;
+    }
+    const parseRow = (line: string): string[] => {
+      const values: string[] = [];
+      let current = "";
+      let quoted = false;
+      for (const char of line) {
+        if (char === '"') quoted = !quoted;
+        else if (char === "," && !quoted) {
+          values.push(current.trim());
+          current = "";
+        } else current += char;
+      }
+      values.push(current.trim());
+      return values.map((value) => value.replace(/^"|"$/g, ""));
+    };
+    const headers = parseRow(lines[0]).map((header) => header.toLowerCase());
+    const indexOf = (...names: string[]) =>
+      names.map((name) => headers.indexOf(name)).find((index) => index >= 0) ??
+      -1;
+    const companyIndex = indexOf("company", "perusahaan", "company name");
+    const roleIndex = indexOf("role", "posisi", "role title", "job title");
+    if (companyIndex < 0 || roleIndex < 0) {
+      toast.error(
+        "CSV wajib memiliki kolom company/perusahaan dan role/posisi.",
+      );
+      return;
+    }
+    let imported = 0;
+    for (const line of lines.slice(1).slice(0, 100)) {
+      const values = parseRow(line);
+      const company = values[companyIndex]?.trim();
+      const role = values[roleIndex]?.trim();
+      if (!company || !role) continue;
+      try {
+        await createApplication({
+          company,
+          role,
+          location:
+            values[indexOf("location", "lokasi")]?.trim() || "Tidak disebutkan",
+          workMode: "remote",
+          employmentType: "full-time",
+          status: "saved",
+          source: values[indexOf("source", "sumber")]?.trim() || "Import CSV",
+          jobUrl:
+            values[indexOf("job url", "url", "link")]?.trim() || undefined,
+          tags: [],
+        });
+        imported += 1;
+      } catch {
+        // Continue importing valid rows; final toast reports count.
+      }
+    }
+    toast.success(`${imported} lamaran berhasil diimpor dari CSV.`);
+  };
+
   const statuses = status === "all" ? APPLICATION_STATUSES : [status];
   const filtersActive = Boolean(
     search || status !== "all" || workMode !== "all" || sort !== "updated-desc",
@@ -198,6 +273,20 @@ export function ApplicationsDashboard() {
                 Pulihkan demo
               </button>
             ) : null}
+            <input
+              ref={importRef}
+              type="file"
+              accept=".csv,text/csv"
+              className="sr-only"
+              onChange={(event) => void importCsv(event)}
+            />
+            <button
+              type="button"
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+              onClick={() => importRef.current?.click()}
+            >
+              Import CSV
+            </button>
             <button
               className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-teal-700 px-4 text-sm font-semibold text-white shadow-sm hover:bg-teal-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 dark:bg-teal-600 dark:hover:bg-teal-500"
               onClick={() => {
