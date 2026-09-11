@@ -15,40 +15,40 @@ export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-ink/10 bg-background/95 backdrop-blur-xl">
-      <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-4 px-5 sm:px-8 lg:px-10">
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-950/95">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 sm:px-8 lg:px-10">
         <Brand />
         <nav
-          className="hidden items-center gap-1.5 md:flex"
+          className="hidden items-center gap-1 md:flex"
           aria-label="Navigasi utama"
         >
           {navigation.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="rounded-full border border-transparent px-3.5 py-2 text-sm font-extrabold text-muted transition hover:border-ink/15 hover:bg-surface hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="rounded-lg px-3.5 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
             >
               {item.label}
             </a>
           ))}
         </nav>
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-2.5 md:flex">
           <Link
             href="/login"
-            className="rounded-full border-2 border-ink/15 bg-surface px-5 py-2.5 text-sm font-extrabold text-ink transition hover:border-ink/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
           >
             Masuk
           </Link>
           <Link
             href="/register"
-            className="rounded-full border-2 border-ink bg-ink px-6 py-2.5 text-sm font-extrabold uppercase tracking-wide text-white shadow-card transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+            className="rounded-xl bg-blue-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
           >
             Mulai gratis
           </Link>
         </div>
         <button
           type="button"
-          className="grid size-11 place-items-center rounded-2xl border-2 border-ink bg-surface text-ink shadow-card md:hidden"
+          className="grid size-10 place-items-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm md:hidden dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200"
           aria-expanded={isOpen}
           aria-controls="mobile-navigation"
           aria-label={isOpen ? "Tutup menu" : "Buka menu"}
@@ -60,7 +60,7 @@ export function SiteHeader() {
       {isOpen ? (
         <div
           id="mobile-navigation"
-          className="border-t-2 border-ink/10 bg-surface px-5 py-5 md:hidden"
+          className="border-t border-slate-200 bg-white px-5 py-5 md:hidden dark:border-slate-800 dark:bg-slate-950"
         >
           <nav
             className="mx-auto grid max-w-7xl gap-1"
@@ -71,21 +71,21 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="rounded-2xl border-2 border-transparent px-3 py-3 text-sm font-extrabold text-ink hover:border-ink/10 hover:bg-background"
+                className="rounded-xl px-3 py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
               >
                 {item.label}
               </a>
             ))}
-            <div className="mt-3 grid grid-cols-2 gap-3 border-t-2 border-ink/10 pt-4">
+            <div className="mt-3 grid grid-cols-2 gap-3 border-t border-slate-100 pt-4 dark:border-slate-800">
               <Link
                 href="/login"
-                className="rounded-2xl border-2 border-ink/15 bg-surface px-4 py-3 text-center text-sm font-extrabold text-ink"
+                className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-center text-sm font-semibold text-slate-700 shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
               >
                 Masuk
               </Link>
               <Link
                 href="/register"
-                className="rounded-2xl border-2 border-ink bg-secondary px-4 py-3 text-center text-sm font-extrabold uppercase tracking-wide text-ink shadow-card"
+                className="rounded-xl bg-blue-600 px-4 py-2.5 text-center text-sm font-semibold text-white shadow-sm"
               >
                 Mulai gratis
               </Link>

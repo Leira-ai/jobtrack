@@ -65,32 +65,32 @@ export function SecurityAndCta() {
           </div>
         </div>
       </section>
-      <section className="relative overflow-hidden border-t-2 border-ink bg-secondary py-16 sm:py-24">
+      <section className="relative overflow-hidden border-t-2 border-slate-800 bg-slate-950 py-16 text-white sm:py-24">
         <div
-          className="pointer-events-none absolute inset-0 opacity-20 [background-image:radial-gradient(#0b1f14_1.5px,transparent_1.5px)] [background-size:22px_22px]"
+          className="pointer-events-none absolute inset-0 opacity-10 [background-image:radial-gradient(#94a3b8_1.5px,transparent_1.5px)] [background-size:24px_24px]"
           aria-hidden="true"
         />
         <div className="relative mx-auto max-w-4xl px-5 text-center sm:px-8">
-          <p className="inline-flex items-center rounded-full border-2 border-ink bg-surface px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-ink shadow-card">
+          <p className="inline-flex items-center rounded-full border border-slate-700 bg-slate-900 px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-blue-400 shadow-card">
             Siap mulai?
           </p>
-          <h2 className="mt-5 text-balance text-4xl font-extrabold tracking-[-0.05em] text-ink sm:text-6xl">
-            Cari kerja dengan lebih berani.
+          <h2 className="mt-5 text-balance text-4xl font-extrabold tracking-[-0.05em] text-white sm:text-6xl">
+            Cari kerja dengan lebih terarah.
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-base font-medium leading-7 text-ink/70 sm:text-lg">
+          <p className="mx-auto mt-4 max-w-xl text-base font-medium leading-7 text-slate-300 sm:text-lg">
             Mulai gratis, atur progresmu, dan fokus pada kesempatan yang paling
             berarti.
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Link
               href="/register"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border-2 border-ink bg-ink px-8 py-3.5 text-sm font-extrabold uppercase tracking-wide text-white shadow-lift transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink/30"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border-2 border-blue-600 bg-blue-600 px-8 py-3.5 text-sm font-extrabold uppercase tracking-wide text-white shadow-lift transition hover:-translate-y-0.5 hover:bg-blue-500 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/30"
             >
               Buat akun gratis <ArrowRight size={18} />
             </Link>
             <Link
               href="/dashboard?demo=true"
-              className="inline-flex min-h-12 items-center justify-center rounded-2xl border-2 border-ink bg-surface px-8 py-3.5 text-sm font-extrabold uppercase tracking-wide text-ink shadow-card transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ink/20"
+              className="inline-flex min-h-12 items-center justify-center rounded-2xl border-2 border-slate-700 bg-slate-900 px-8 py-3.5 text-sm font-extrabold uppercase tracking-wide text-white shadow-card transition hover:-translate-y-0.5 hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-500/20"
             >
               Jelajahi data demo
             </Link>

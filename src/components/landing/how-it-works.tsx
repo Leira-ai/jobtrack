@@ -7,7 +7,6 @@ const steps = [
     title: "Simpan peluang",
     description:
       "Tambahkan lowongan yang menarik beserta posisi, perusahaan, gaji, dan tautannya.",
-    chip: "border-ink bg-secondary text-ink",
   },
   {
     number: "02",
@@ -15,7 +14,6 @@ const steps = [
     title: "Kelola prosesnya",
     description:
       "Perbarui status, susun jadwal, dan simpan catatan penting setelah setiap interaksi.",
-    chip: "border-amber-200 bg-amber-100 text-ink",
   },
   {
     number: "03",
@@ -23,7 +21,6 @@ const steps = [
     title: "Ambil langkah berikutnya",
     description:
       "Gunakan ringkasan dan tugas untuk fokus pada tindakan yang paling berarti hari ini.",
-    chip: "border-indigo-200 bg-indigo-500 text-white",
   },
 ] as const;
 
@@ -31,23 +28,24 @@ export function HowItWorks() {
   return (
     <section
       id="cara-kerja"
-      className="scroll-mt-24 bg-background py-16 sm:py-24"
+      className="scroll-mt-24 bg-slate-50/70 py-16 sm:py-24 dark:bg-slate-950/60"
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-          <div className="lg:sticky lg:top-28">
-            <p className="inline-flex items-center rounded-full border-2 border-ink bg-surface px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-ink shadow-card">
+          <div className="lg:sticky lg:top-28 text-left">
+            <p className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-blue-900 dark:border-blue-900 dark:bg-blue-950/50 dark:text-blue-300">
               Mulai tanpa ribet
             </p>
-            <h2 className="mt-5 max-w-md text-balance text-4xl font-extrabold tracking-[-0.045em] text-ink sm:text-5xl">
+            <h2 className="mt-4 max-w-md text-balance text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">
               Dari lowongan tersimpan ke langkah nyata.
             </h2>
-            <p className="mt-4 max-w-md text-base leading-7 text-muted">
-              Alur 3 langkah yang bikin kamu konsisten, tanpa nambah kerjaan
+            <p className="mt-3 max-w-md text-base leading-7 text-slate-600 dark:text-slate-400">
+              Alur 3 langkah yang membuatmu konsisten, tanpa menambah beban
               administratif.
             </p>
-            <div className="mt-6 inline-flex items-center gap-2 rounded-2xl border-2 border-ink bg-secondary px-4 py-2.5 text-sm font-extrabold text-ink shadow-card">
-              <Check size={16} /> Siap dalam hitungan menit
+            <div className="mt-6 inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-800 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200">
+              <Check size={16} className="text-blue-600 dark:text-blue-400" />{" "}
+              Siap dalam hitungan menit
             </div>
           </div>
           <ol className="grid gap-4">
@@ -56,28 +54,25 @@ export function HowItWorks() {
               return (
                 <li
                   key={step.number}
-                  className="relative flex gap-4 rounded-[1.75rem] border-2 border-ink/10 bg-surface p-5 shadow-card transition duration-300 hover:-translate-y-1 hover:border-ink hover:shadow-lift sm:gap-6 sm:p-7"
+                  className="relative flex gap-4 rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:border-slate-300 sm:gap-6 dark:border-slate-800 dark:bg-slate-900"
                 >
-                  <span className="grid size-14 shrink-0 place-items-center rounded-3xl border-2 border-ink bg-primary-strong text-white">
-                    <Icon size={24} />
+                  <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-blue-600 text-white shadow-sm">
+                    <Icon size={22} />
                   </span>
                   <div className="min-w-0">
-                    <p
-                      className={`inline-flex rounded-full border-2 px-3 py-1 text-[11px] font-extrabold tracking-[0.16em] ${step.chip}`}
-                    >
+                    <p className="inline-flex rounded-full border border-blue-200 bg-blue-50 px-2.5 py-0.5 text-[11px] font-semibold text-blue-900 dark:border-blue-900 dark:bg-blue-950/60 dark:text-blue-300">
                       LANGKAH {step.number}
                     </p>
-                    <h3 className="mt-2 text-xl font-extrabold tracking-tight text-ink">
+                    <h3 className="mt-2 text-lg font-semibold tracking-tight text-slate-900 dark:text-white">
                       {step.title}
                     </h3>
-                    <p className="mt-1.5 text-sm leading-6 text-muted">
+                    <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-400">
                       {step.description}
                     </p>
                   </div>
                   {index < steps.length - 1 ? (
                     <ArrowDown
-                      className="absolute -bottom-4 left-10 z-10 rounded-full border-2 border-ink bg-secondary p-0.5 text-ink"
-                      size={18}
+                      className="absolute -bottom-3.5 left-9 z-10 size-4 text-blue-500"
                       aria-hidden="true"
                     />
                   ) : null}
