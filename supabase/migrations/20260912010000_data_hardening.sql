@@ -1,6 +1,6 @@
 begin;
 
-create or replace function public.tags_items_within_limit(values text[])
+create or replace function public.tags_items_within_limit(input_tags text[])
 returns boolean
 language plpgsql
 immutable
@@ -8,8 +8,8 @@ as $$
 declare
   item text;
 begin
-  if values is null then return true; end if;
-  foreach item in array values loop
+  if input_tags is null then return true; end if;
+  foreach item in array input_tags loop
     if char_length(item) > 80 then return false; end if;
   end loop;
   return true;
