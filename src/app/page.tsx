@@ -14,9 +14,9 @@ const appUrl =
   "http://localhost:3000";
 
 export const metadata: Metadata = {
-  title: "Kelola Lamaran Kerja dengan Lebih Terarah",
+  title: "Kelola Lamaran Kerja dengan Lebih Berani",
   description:
-    "Atur lamaran, wawancara, tugas, dan dokumen pencarian kerja dalam satu ruang kerja yang rapi.",
+    "Atur lamaran, wawancara, tugas, dan dokumen pencarian kerja dalam satu ruang kerja yang berenergi.",
 };
 
 const structuredData = {
@@ -35,7 +35,7 @@ export default function HomePage() {
   return (
     <div
       lang="id"
-      className="min-h-screen bg-[#fbfcf8] font-sans text-slate-900 selection:bg-emerald-200 selection:text-emerald-950"
+      className="min-h-screen bg-background font-sans text-ink selection:bg-accent selection:text-ink"
     >
       <script
         type="application/ld+json"
@@ -43,7 +43,7 @@ export default function HomePage() {
       />
       <a
         href="#konten-utama"
-        className="sr-only z-[100] rounded-lg bg-white px-4 py-3 font-semibold text-[#123c2d] focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        className="sr-only z-[100] rounded-2xl border-2 border-ink bg-accent px-4 py-3 font-extrabold text-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
       >
         Lewati ke konten utama
       </a>

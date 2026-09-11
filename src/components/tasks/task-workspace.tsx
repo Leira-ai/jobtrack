@@ -114,7 +114,7 @@ export function TaskWorkspace({
 
   function flash(message: string) {
     setNotice(message);
-    window.setTimeout(() => setNotice(""), 2400);
+    window.setTimeout(() => setNotice(""), 4000);
   }
 
   function openCreate() {

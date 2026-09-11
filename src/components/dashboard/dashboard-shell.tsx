@@ -44,15 +44,15 @@ function Logo({ compact = false }: { compact?: boolean }) {
   return (
     <Link
       href="/dashboard"
-      className="flex items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500"
+      className="flex items-center gap-3 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
       aria-label="JobTrack, ke ringkasan"
     >
-      <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-teal-700 text-white shadow-sm">
+      <span className="grid size-10 shrink-0 rotate-3 place-items-center rounded-2xl border-2 border-ink bg-primary-strong text-accent shadow-card">
         <BriefcaseBusiness className="size-5" />
       </span>
       {!compact ? (
-        <span className="text-lg font-bold tracking-tight text-slate-950 dark:text-white">
-          Job<span className="text-teal-700 dark:text-teal-400">Track</span>
+        <span className="text-xl font-extrabold tracking-[-0.04em] text-ink dark:text-white">
+          Job<span className="text-primary dark:text-accent">Track</span>
         </span>
       ) : null}
     </Link>
@@ -82,22 +82,17 @@ function NavLinks({
             onClick={onNavigate}
             title={compact ? item.label : undefined}
             className={cn(
-              "group flex min-h-11 items-center rounded-xl text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500",
+              "group flex min-h-11 items-center rounded-2xl text-sm font-extrabold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
               compact ? "justify-center px-2" : "gap-3 px-3",
               active
-                ? "bg-teal-50 text-teal-800 dark:bg-teal-950 dark:text-teal-200"
-                : "text-slate-600 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white",
+                ? "border-2 border-ink bg-accent text-ink shadow-card dark:border-white/20"
+                : "text-muted hover:bg-ink/5 hover:text-ink dark:text-white/60 dark:hover:bg-white/10 dark:hover:text-white",
             )}
           >
-            <Icon
-              className={cn(
-                "size-5 shrink-0",
-                active && "text-teal-700 dark:text-teal-400",
-              )}
-            />
+            <Icon className={cn("size-5 shrink-0", active && "text-ink")} />
             {!compact ? <span>{item.label}</span> : null}
             {!compact && active ? (
-              <span className="ml-auto size-1.5 rounded-full bg-teal-600" />
+              <span className="ml-auto size-2 rounded-full border border-ink bg-ink" />
             ) : null}
           </Link>
         );
@@ -124,7 +119,7 @@ function ThemeButton() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="grid size-10 place-items-center rounded-xl text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
+      className="grid size-11 place-items-center rounded-2xl border-2 border-ink/15 text-ink shadow-card transition hover:-translate-y-0.5 hover:border-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/20 dark:text-white"
       aria-label={dark ? "Gunakan tema terang" : "Gunakan tema gelap"}
     >
       {dark ? <Sun className="size-5" /> : <Moon className="size-5" />}
@@ -160,10 +155,10 @@ export function DashboardShell({
     router.refresh();
   };
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950 dark:text-slate-100">
+    <div className="min-h-screen bg-background text-ink transition-colors dark:text-white">
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-30 hidden border-r border-slate-200 bg-white transition-[width] duration-200 dark:border-slate-800 dark:bg-slate-900 lg:flex lg:flex-col",
+          "fixed inset-y-0 left-0 z-30 hidden border-r-2 border-ink/10 bg-surface transition-[width] duration-200 dark:border-white/10 lg:flex lg:flex-col",
           collapsed ? "w-20" : "w-64",
         )}
       >
@@ -191,7 +186,7 @@ export function DashboardShell({
         <button
           type="button"
           onClick={() => setCollapsed((value) => !value)}
-          className="m-3 flex min-h-10 items-center justify-center gap-2 rounded-xl border border-slate-200 text-sm font-medium text-slate-500 hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800"
+          className="m-3 flex min-h-11 items-center justify-center gap-2 rounded-2xl border-2 border-ink/15 text-sm font-extrabold text-ink shadow-card transition hover:-translate-y-0.5 hover:border-ink dark:border-white/20 dark:text-white"
           aria-label={collapsed ? "Perluas sidebar" : "Ciutkan sidebar"}
         >
           <ChevronLeft
@@ -210,7 +205,7 @@ export function DashboardShell({
           collapsed ? "lg:pl-20" : "lg:pl-64",
         )}
       >
-        <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-slate-200/80 bg-white/90 px-4 backdrop-blur-xl dark:border-slate-800 dark:bg-slate-900/90 sm:px-6">
+        <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b-2 border-ink/10 bg-surface/95 px-4 backdrop-blur-xl dark:border-white/10 sm:px-6">
           <div className="flex items-center gap-3 lg:hidden">
             <button
               type="button"
@@ -237,7 +232,7 @@ export function DashboardShell({
             {demoMode ? (
               <Link
                 href="/login?demo=false"
-                className="hidden min-h-10 items-center gap-2 rounded-xl px-3 text-sm font-semibold text-teal-700 hover:bg-teal-50 sm:inline-flex dark:text-teal-300 dark:hover:bg-teal-950"
+                className="hidden min-h-11 items-center gap-2 rounded-2xl border-2 border-ink/15 px-4 text-sm font-extrabold text-primary shadow-card transition hover:-translate-y-0.5 hover:border-ink sm:inline-flex dark:border-white/20 dark:text-accent"
               >
                 <CircleUserRound aria-hidden="true" className="size-4" />
                 Masuk ke akun
@@ -251,7 +246,7 @@ export function DashboardShell({
             <div className="relative ml-1">
               <button
                 type="button"
-                className="grid size-9 place-items-center rounded-full bg-slate-900 text-xs font-bold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 dark:bg-teal-700"
+                className="grid size-10 place-items-center rounded-2xl border-2 border-ink bg-primary-strong text-xs font-extrabold text-accent shadow-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 aria-label={`Buka menu profil ${profile.displayName}`}
                 aria-expanded={profileOpen}
                 onClick={() => setProfileOpen((value) => !value)}
@@ -259,11 +254,11 @@ export function DashboardShell({
                 {profile.initials}
               </button>
               {profileOpen ? (
-                <div className="absolute right-0 top-12 w-64 rounded-2xl border border-slate-200 bg-white p-3 shadow-xl dark:border-slate-700 dark:bg-slate-900">
+                <div className="absolute right-0 top-12 w-64 rounded-3xl border-2 border-ink bg-surface p-3 shadow-lift dark:border-white/20">
                   <p className="truncate px-2 text-sm font-semibold text-slate-900 dark:text-white">
                     {profile.displayName}
                   </p>
-                  <p className="truncate px-2 pt-1 text-xs text-slate-500 dark:text-slate-400">
+                  <p className="truncate px-2 pt-1 text-xs font-semibold text-muted">
                     {profile.email}
                   </p>
                   {!demoMode ? (
@@ -295,7 +290,7 @@ export function DashboardShell({
             onClick={() => setMenuOpen(false)}
             aria-label="Tutup navigasi"
           />
-          <aside className="relative flex h-full w-[min(86vw,320px)] flex-col bg-white p-4 shadow-2xl dark:bg-slate-900">
+          <aside className="relative flex h-full w-[min(86vw,320px)] flex-col border-r-2 border-ink bg-surface p-4 shadow-lift">
             <div className="mb-6 flex items-center justify-between">
               <Logo />
               <button
@@ -312,7 +307,7 @@ export function DashboardShell({
               <div className="mt-auto space-y-3">
                 <Link
                   href="/login?demo=false"
-                  className="flex min-h-11 items-center justify-center gap-2 rounded-xl bg-teal-700 px-4 text-sm font-semibold text-white"
+                  className="flex min-h-11 items-center justify-center gap-2 rounded-2xl border-2 border-ink bg-primary-strong px-4 text-sm font-extrabold uppercase tracking-wide text-white shadow-card"
                 >
                   <CircleUserRound aria-hidden="true" className="size-4" />
                   Masuk ke akun

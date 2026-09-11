@@ -15,40 +15,40 @@ export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#10261f]/8 bg-[#fbfcf8]/90 backdrop-blur-xl">
-      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
+    <header className="sticky top-0 z-50 border-b-2 border-ink/10 bg-background/95 backdrop-blur-xl">
+      <div className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between gap-4 px-5 sm:px-8 lg:px-10">
         <Brand />
         <nav
-          className="hidden items-center gap-8 md:flex"
+          className="hidden items-center gap-1.5 md:flex"
           aria-label="Navigasi utama"
         >
           {navigation.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className="rounded-md text-sm font-medium text-slate-600 transition-colors hover:text-[#123c2d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+              className="rounded-full border border-transparent px-3.5 py-2 text-sm font-extrabold text-muted transition hover:border-ink/15 hover:bg-surface hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             >
               {item.label}
             </a>
           ))}
         </nav>
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-2 md:flex">
           <Link
             href="/login"
-            className="rounded-xl px-4 py-2.5 text-sm font-semibold text-[#123c2d] transition-colors hover:bg-emerald-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+            className="rounded-full border-2 border-ink/15 bg-surface px-5 py-2.5 text-sm font-extrabold text-ink transition hover:border-ink/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
           >
             Masuk
           </Link>
           <Link
             href="/register"
-            className="rounded-xl bg-[#123c2d] px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#0d3023] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2"
+            className="rounded-full border-2 border-ink bg-ink px-6 py-2.5 text-sm font-extrabold uppercase tracking-wide text-accent shadow-card transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
           >
             Mulai gratis
           </Link>
         </div>
         <button
           type="button"
-          className="grid size-10 place-items-center rounded-xl border border-slate-200 text-[#123c2d] md:hidden"
+          className="grid size-11 place-items-center rounded-2xl border-2 border-ink bg-surface text-ink shadow-card md:hidden"
           aria-expanded={isOpen}
           aria-controls="mobile-navigation"
           aria-label={isOpen ? "Tutup menu" : "Buka menu"}
@@ -60,7 +60,7 @@ export function SiteHeader() {
       {isOpen ? (
         <div
           id="mobile-navigation"
-          className="border-t border-slate-200 bg-white px-5 py-5 md:hidden"
+          className="border-t-2 border-ink/10 bg-surface px-5 py-5 md:hidden"
         >
           <nav
             className="mx-auto grid max-w-7xl gap-1"
@@ -71,21 +71,21 @@ export function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="rounded-xl px-3 py-3 text-sm font-semibold text-slate-700 hover:bg-emerald-50"
+                className="rounded-2xl border-2 border-transparent px-3 py-3 text-sm font-extrabold text-ink hover:border-ink/10 hover:bg-background"
               >
                 {item.label}
               </a>
             ))}
-            <div className="mt-3 grid grid-cols-2 gap-3 border-t border-slate-100 pt-4">
+            <div className="mt-3 grid grid-cols-2 gap-3 border-t-2 border-ink/10 pt-4">
               <Link
                 href="/login"
-                className="rounded-xl border border-slate-200 px-4 py-3 text-center text-sm font-semibold text-[#123c2d]"
+                className="rounded-2xl border-2 border-ink/15 bg-surface px-4 py-3 text-center text-sm font-extrabold text-ink"
               >
                 Masuk
               </Link>
               <Link
                 href="/register"
-                className="rounded-xl bg-[#123c2d] px-4 py-3 text-center text-sm font-semibold text-white"
+                className="rounded-2xl border-2 border-ink bg-accent px-4 py-3 text-center text-sm font-extrabold uppercase tracking-wide text-ink shadow-card"
               >
                 Mulai gratis
               </Link>

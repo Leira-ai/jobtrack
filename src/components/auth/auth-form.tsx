@@ -24,7 +24,7 @@ interface AuthFormProps {
 }
 
 const fieldClass =
-  "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10";
+  "w-full rounded-2xl border-2 border-ink/15 bg-surface px-4 py-3 text-sm font-medium text-ink outline-none transition placeholder:text-muted/70 focus:border-primary focus:ring-4 focus:ring-accent/40 dark:border-white/20 dark:text-white";
 
 const modeCopy = {
   login: { button: "Masuk ke JobTrack", loading: "Memproses..." },
@@ -131,7 +131,7 @@ export function AuthForm({ mode }: AuthFormProps) {
         <Field label="Nama lengkap" htmlFor="fullName">
           <div className="relative">
             <UserRound
-              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted"
               size={17}
             />
             <input
@@ -151,7 +151,7 @@ export function AuthForm({ mode }: AuthFormProps) {
         <Field label="Email" htmlFor="email">
           <div className="relative">
             <Mail
-              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"
+              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted"
               size={17}
             />
             <input
@@ -188,7 +188,7 @@ export function AuthForm({ mode }: AuthFormProps) {
             <button
               type="button"
               onClick={() => setShowPassword((value) => !value)}
-              className="absolute right-2.5 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+              className="absolute right-2.5 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-lg text-muted hover:bg-slate-100 hover:text-ink dark:text-white"
               aria-label={
                 showPassword ? "Sembunyikan kata sandi" : "Tampilkan kata sandi"
               }
@@ -218,20 +218,20 @@ export function AuthForm({ mode }: AuthFormProps) {
             name="terms"
             type="checkbox"
             required
-            className="mt-0.5 size-4 rounded border-slate-300 accent-emerald-700"
+            className="mt-0.5 size-4 rounded border-ink/30 accent-[#65a30d]"
           />
           <span>
             Saya menyetujui{" "}
             <a
               href="/terms"
-              className="font-semibold text-emerald-800 hover:underline"
+              className="font-extrabold text-primary hover:underline dark:text-accent"
             >
               Ketentuan Layanan
             </a>{" "}
             dan{" "}
             <a
               href="/privacy"
-              className="font-semibold text-emerald-800 hover:underline"
+              className="font-extrabold text-primary hover:underline dark:text-accent"
             >
               Kebijakan Privasi
             </a>
@@ -243,7 +243,7 @@ export function AuthForm({ mode }: AuthFormProps) {
       <button
         type="submit"
         disabled={isLoading}
-        className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#123c2d] px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-[#0d3023] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border-2 border-ink bg-primary-strong px-5 py-3 text-sm font-extrabold uppercase tracking-wide text-white shadow-lift transition hover:-translate-y-0.5 hover:bg-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent/50 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isLoading ? <LoaderCircle size={17} className="animate-spin" /> : null}
         {isLoading ? modeCopy[mode].loading : modeCopy[mode].button}
@@ -268,11 +268,11 @@ function Field({
       <div className="mb-2 flex items-center justify-between">
         <label
           htmlFor={htmlFor}
-          className="text-sm font-semibold text-slate-700"
+          className="text-sm font-semibold text-ink dark:text-white"
         >
           {label}
         </label>
-        {hint ? <span className="text-xs text-slate-400">{hint}</span> : null}
+        {hint ? <span className="text-xs text-muted">{hint}</span> : null}
       </div>
       {children}
     </div>
@@ -288,15 +288,15 @@ function StatusMessage({
 }) {
   const style =
     type === "error"
-      ? "border-rose-200 bg-rose-50 text-rose-800"
+      ? "border-2 border-rose-900/30 bg-rose-500 text-white"
       : type === "success"
-        ? "border-emerald-200 bg-emerald-50 text-emerald-800"
-        : "border-amber-200 bg-amber-50 text-amber-900";
+        ? "border-2 border-ink bg-accent text-ink"
+        : "border-2 border-amber-900/30 bg-amber-300 text-amber-950";
   const Icon = type === "success" ? CheckCircle2 : AlertCircle;
   return (
     <div
       role={type === "error" ? "alert" : "status"}
-      className={`flex items-start gap-2.5 rounded-xl border px-3.5 py-3 text-xs leading-5 ${style}`}
+      className={`flex items-start gap-2.5 rounded-2xl border-2 px-3.5 py-3 text-xs font-semibold leading-5 ${style}`}
     >
       <Icon size={17} className="mt-0.5 shrink-0" />
       {text}

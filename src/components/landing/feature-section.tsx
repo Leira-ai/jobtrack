@@ -13,79 +13,82 @@ const features = [
     title: "Pipeline yang jelas",
     description:
       "Pindahkan lamaran dari tersimpan hingga keputusan akhir dalam satu papan yang mudah dipindai.",
-    tint: "bg-emerald-50 text-emerald-700",
+    tint: "border-ink bg-accent text-ink",
   },
   {
     icon: CalendarCheck2,
     title: "Jadwal tetap terjaga",
     description:
       "Catat wawancara, tenggat, dan follow-up agar tidak ada momen penting yang terlewat.",
-    tint: "bg-blue-50 text-blue-700",
+    tint: "border-blue-900 bg-blue-600 text-white",
   },
   {
     icon: FileText,
     title: "Dokumen selalu siap",
     description:
       "Kelola CV, surat lamaran, dan portfolio sesuai kebutuhan setiap posisi.",
-    tint: "bg-amber-50 text-amber-700",
+    tint: "border-amber-900 bg-amber-300 text-amber-950",
   },
   {
     icon: BellRing,
     title: "Tindak lanjut tepat waktu",
     description:
       "Buat tugas dan pengingat sederhana untuk menjaga momentum proses rekrutmen.",
-    tint: "bg-violet-50 text-violet-700",
+    tint: "border-violet-900 bg-violet-600 text-white",
   },
   {
     icon: BarChart3,
     title: "Progres yang terukur",
     description:
       "Pahami sumber lamaran terbaik dan lihat perkembangan pencarian kerjamu dari waktu ke waktu.",
-    tint: "bg-rose-50 text-rose-700",
+    tint: "border-rose-900 bg-rose-500 text-white",
   },
   {
     icon: SearchCheck,
     title: "Semua detail di satu tempat",
     description:
       "Simpan kontak rekruter, catatan interview, gaji, dan tautan lowongan tanpa spreadsheet terpisah.",
-    tint: "bg-cyan-50 text-cyan-700",
+    tint: "border-cyan-900 bg-cyan-500 text-cyan-950",
   },
 ] as const;
 
 export function FeatureSection() {
   return (
-    <section id="fitur" className="scroll-mt-24 bg-white py-20 sm:py-28">
+    <section
+      id="fitur"
+      className="scroll-mt-24 border-y-2 border-ink/10 bg-surface py-16 sm:py-24"
+    >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-emerald-700">
+        <div className="max-w-3xl">
+          <p className="inline-flex items-center rounded-full border-2 border-ink bg-pop px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.18em] text-amber-950 shadow-card">
             Satu ruang kerja
           </p>
-          <h2 className="mt-4 text-3xl font-bold tracking-[-0.04em] text-[#10261f] sm:text-4xl">
-            Semua yang kamu butuhkan untuk tetap selangkah di depan
+          <h2 className="mt-5 text-balance text-4xl font-extrabold tracking-[-0.045em] text-ink sm:text-5xl">
+            Semua yang kamu butuhkan untuk tetap selangkah di depan.
           </h2>
-          <p className="mt-5 text-base leading-7 text-slate-600 sm:text-lg">
-            Bukan sekadar daftar lamaran. JobTrack membantu setiap langkah
-            terasa lebih terencana.
+          <p className="mt-4 max-w-xl text-base leading-7 text-muted sm:text-lg">
+            Bukan sekadar daftar lamaran. Setiap kartu dibuat scannable, setiap
+            status langsung terbaca.
           </p>
         </div>
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((feature) => {
             const Icon = feature.icon;
             return (
               <article
                 key={feature.title}
-                className="group rounded-2xl border border-slate-200/80 bg-[#fcfdfb] p-6 transition duration-300 hover:-translate-y-1 hover:border-emerald-200 hover:shadow-[0_20px_50px_-32px_rgba(16,61,44,0.45)]"
+                className="group rounded-[1.75rem] border-2 border-ink/10 bg-background p-6 shadow-card transition duration-300 hover:-translate-y-1.5 hover:border-ink hover:shadow-lift"
               >
                 <span
-                  className={`grid size-11 place-items-center rounded-xl ${feature.tint}`}
+                  className={`grid size-12 place-items-center rounded-2xl border-2 ${feature.tint}`}
                   aria-hidden="true"
                 >
-                  <Icon size={21} />
+                  <Icon size={22} />
                 </span>
-                <h3 className="mt-5 text-lg font-bold tracking-tight text-[#10261f]">
+                <h3 className="mt-5 text-xl font-extrabold tracking-[-0.02em] text-ink">
                   {feature.title}
                 </h3>
-                <p className="mt-2 text-sm leading-6 text-slate-600">
+                <p className="mt-2 text-sm leading-6 text-muted">
                   {feature.description}
                 </p>
               </article>
