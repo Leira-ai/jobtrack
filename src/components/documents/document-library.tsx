@@ -10,6 +10,7 @@ import {
 import { useRouter } from "next/navigation";
 import {
   Download,
+  Eye,
   File,
   FileText,
   Link2,
@@ -76,13 +77,35 @@ export function DocumentLibrary({
   const [notice, setNotice] = useState("");
   const [query, setQuery] = useState("");
   const [activeDocumentId, setActiveDocumentId] = useState<string | null>(null);
+  const [typeFilter, setTypeFilter] = useState<JobDocumentType | "all">("all");
+  const [linkFilter, setLinkFilter] = useState<"all" | "linked" | "unlinked">(
+    "all",
+  );
+  const [previewId, setPreviewId] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const inputRef = useRef<HTMLInputElement>(null);
-  const visible = documents.filter(
-    (document) =>
-      document.name.toLowerCase().includes(query.toLowerCase()) ||
-      document.fileName.toLowerCase().includes(query.toLowerCase()),
-  );
+  const visible = documents.filter((document) => {
+    const needle = query.trim().toLowerCase();
+    const matchesQuery =
+      !needle ||
+      document.name.toLowerCase().includes(needle) ||
+      document.fileName.toLowerCase().includes(needle);
+    const matchesType = typeFilter === "all" || document.type === typeFilter;
+    const matchesLink =
+      linkFilter === "all" ||
+      (linkFilter === "linked"
+        ? document.applicationIds.length > 0
+        : document.applicationIds.length === 0);
+    return matchesQuery && matchesType && matchesLink;
+  });
+  const previewDocument = previewId
+    ? (documents.find((document) => document.id === previewId) ?? null)
+    : null;
+  const previewDocumentLabel = previewDocument
+    ? (applications.find((option) =>
+        previewDocument.applicationIds.includes(option.id),
+      )?.label ?? null)
+    : null;
 
   function selectFile(selected: globalThis.File | undefined) {
     if (!selected) return;
@@ -296,16 +319,47 @@ export function DocumentLibrary({
               PDF atau DOCX hingga 10 MiB
             </p>
           </div>
-          <label className="relative sm:w-72">
-            <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
-            <span className="sr-only">Cari dokumen</span>
-            <input
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Cari dokumen..."
-              className={`${fieldStyles} pl-9`}
-            />
-          </label>
+          <div className="flex flex-wrap items-center gap-2">
+            <select
+              value={typeFilter}
+              onChange={(event) =>
+                setTypeFilter(event.target.value as JobDocumentType | "all")
+              }
+              aria-label="Filter jenis dokumen"
+              className={`${fieldStyles} w-auto min-w-32 text-xs`}
+            >
+              <option value="all">Semua jenis</option>
+              {Object.entries(typeLabel).map(([key, label]) => (
+                <option key={key} value={key}>
+                  {label}
+                </option>
+              ))}
+            </select>
+            <select
+              value={linkFilter}
+              onChange={(event) =>
+                setLinkFilter(
+                  event.target.value as "all" | "linked" | "unlinked",
+                )
+              }
+              aria-label="Filter relasi lamaran"
+              className={`${fieldStyles} w-auto min-w-36 text-xs`}
+            >
+              <option value="all">Semua relasi</option>
+              <option value="linked">Terhubung lamaran</option>
+              <option value="unlinked">Belum terhubung</option>
+            </select>
+            <label className="relative sm:w-64">
+              <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
+              <span className="sr-only">Cari dokumen</span>
+              <input
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Cari dokumen..."
+                className={`${fieldStyles} pl-9`}
+              />
+            </label>
+          </div>
         </div>
         {visible.length ? (
           <div className="overflow-x-auto">
@@ -358,6 +412,14 @@ export function DocumentLibrary({
                     </td>
                     <td className="px-5 py-4">
                       <div className="flex gap-1">
+                        <button
+                          type="button"
+                          onClick={() => setPreviewId(document.id)}
+                          className={buttonStyles.ghost}
+                          aria-label={`Pratinjau ${document.name}`}
+                        >
+                          <Eye className="size-4" />
+                        </button>
                         <button
                           type="button"
                           onClick={() => downloadDocument(document)}
@@ -537,6 +599,77 @@ export function DocumentLibrary({
                 className={buttonStyles.primary}
               >
                 {isPending ? "Mengunggah..." : "Tambahkan ke pustaka"}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+      {previewDocument ? (
+        <div
+          className="fixed inset-0 z-50 grid place-items-center bg-slate-950/60 p-4 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Pratinjau ${previewDocument.name}`}
+          onClick={() => setPreviewId(null)}
+        >
+          <div
+            className="max-h-[84vh] w-full max-w-xl rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl dark:border-slate-800 dark:bg-slate-900"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h2 className="text-base font-semibold text-slate-900 dark:text-white">
+                  Pratinjau metadata: {previewDocument.name}
+                </h2>
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                  {typeLabel[previewDocument.type]} · {previewDocument.fileName}
+                  {previewDocumentLabel ? ` · ${previewDocumentLabel}` : ""} · v
+                  {previewDocument.version}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setPreviewId(null)}
+                className={buttonStyles.ghost}
+                aria-label="Tutup pratinjau"
+              >
+                <X className="size-4" />
+              </button>
+            </div>
+            <div className="mt-4 rounded-xl border border-slate-200 p-4 dark:border-slate-700">
+              <p className="text-sm text-slate-600 dark:text-slate-300">
+                Mode pustaka dokumen menyimpan metadata dan tidak melakukan
+                render isi file langsung di halaman ini. Gunakan tombol Unduh
+                untuk membuka dokumen via signed URL aman (60 detik) atau
+                Pratinjau untuk memeriksa metadata yang terhubung.
+              </p>
+              <ul className="mt-3 space-y-1 text-xs text-slate-500 dark:text-slate-400">
+                <li>
+                  Dibuat:{" "}
+                  {formatDate(previewDocument.createdAt, {
+                    dateStyle: "medium",
+                  })}
+                </li>
+                <li>
+                  Terhubung: {previewDocument.applicationIds.length} lamaran
+                </li>
+                <li>Ukuran: {formatBytes(previewDocument.sizeBytes)}</li>
+              </ul>
+            </div>
+            <div className="mt-4 flex justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => setPreviewId(null)}
+                className={buttonStyles.secondary}
+              >
+                Tutup
+              </button>
+              <button
+                type="button"
+                onClick={() => downloadDocument(previewDocument)}
+                className={buttonStyles.primary}
+              >
+                <Download className="size-4" /> Unduh file
               </button>
             </div>
           </div>

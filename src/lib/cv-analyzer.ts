@@ -70,6 +70,36 @@ const SKILL_CONCEPTS = {
   pytorch: ["pytorch"],
   playwright: ["playwright"],
   jest: ["jest"],
+  // Finance & Accounting
+  akuntansi: ["akuntansi", "accounting", "pembukuan", "bookkeeping"],
+  perpajakan: ["pajak", "perpajakan", "taxation", "brevet"],
+  "financial analysis": ["financial analysis", "analisis keuangan"],
+  audit: ["audit", "auditing", "internal audit"],
+  accurate: ["accurate", "accurate accounting"],
+  sap: ["sap", "sap erp"],
+  // Human Resources & People
+  rekrutmen: ["rekrutmen", "recruitment", "talent acquisition"],
+  payroll: ["payroll", "penggajian"],
+  kpi: ["kpi", "key performance indicator", "performance management"],
+  // Sales, Marketing & Content
+  copywriting: ["copywriting", "penulisan naskah"],
+  "content writing": ["content writing", "penulisan konten"],
+  crm: ["crm", "customer relationship management", "salesforce", "hubspot"],
+  "google ads": ["google ads", "google adwords"],
+  "meta ads": ["meta ads", "facebook ads", "instagram ads"],
+  "google analytics": ["google analytics", "ga4"],
+  canva: ["canva"],
+  // Creative & Design
+  photoshop: ["photoshop", "adobe photoshop"],
+  illustrator: ["illustrator", "adobe illustrator"],
+  "ui/ux design": ["ui/ux", "ui design", "ux design"],
+  // Operations & Logistics
+  logistik: ["logistik", "logistics", "supply chain management", "scm"],
+  procurement: ["procurement", "pengadaan", "purchasing"],
+  // Management & Productivity
+  notion: ["notion"],
+  jira: ["jira"],
+  trello: ["trello"],
 } as const;
 
 const DOMAIN_CONCEPTS = {
@@ -119,6 +149,39 @@ const DOMAIN_CONCEPTS = {
   ],
   agile: ["agile methodology", "agile", "scrum master", "metodologi agile"],
   "english language": ["english language", "bahasa inggris"],
+  "finance & accounting": [
+    "finance",
+    "keuangan",
+    "akuntansi",
+    "accounting",
+    "financial planning",
+  ],
+  "human resources": [
+    "human resources",
+    "hr",
+    "manajemen sdm",
+    "personalia",
+    "human capital",
+  ],
+  "sales & business development": [
+    "sales",
+    "penjualan",
+    "business development",
+    "pengembangan bisnis",
+  ],
+  "supply chain & logistics": [
+    "supply chain",
+    "logistik",
+    "rantai pasok",
+    "manajemen pergudangan",
+  ],
+  "legal & compliance": [
+    "legal",
+    "hukum",
+    "kepatuhan",
+    "compliance",
+    "perjanjian kerja",
+  ],
 } as const;
 
 const ACTION_VERBS =

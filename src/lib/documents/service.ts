@@ -4,7 +4,9 @@ import type { JobDocument, JobDocumentType } from "@/types";
 import {
   DOCUMENT_MIME_TYPE_BY_EXTENSION,
   getFileExtension,
+  sanitizeFileName,
   validateDocumentFile,
+  validateDocumentHeader,
 } from "@/lib/file-validation";
 
 export const DOCUMENTS_BUCKET = "documents";
@@ -194,6 +196,23 @@ export async function uploadDocumentForUser(
   const extension = getFileExtension(
     file.name,
   ) as keyof typeof DOCUMENT_MIME_TYPE_BY_EXTENSION;
+  if (typeof file.arrayBuffer === "function") {
+    try {
+      const fullBuffer = await file.arrayBuffer();
+      if (fullBuffer.byteLength >= 4) {
+        const header = fullBuffer.slice(0, 8);
+        if (!validateDocumentHeader(header, extension)) {
+          return {
+            ok: false,
+            message: `File ${extension.toUpperCase()} tidak valid: isi file tidak sesuai dengan ekstensinya. Simpan ulang dokumen dengan format yang benar.`,
+          };
+        }
+      }
+    } catch {
+      // Skip check if stream cannot be read in current environment
+    }
+  }
+  const safeFileName = sanitizeFileName(file.name);
   const storagePath = `${userId}/${documentId}/file.${extension}`;
   const contentType = DOCUMENT_MIME_TYPE_BY_EXTENSION[extension];
   const { error: uploadError } = await supabase.storage
@@ -209,7 +228,7 @@ export async function uploadDocumentForUser(
     application_id: primaryApplicationId,
     document_type: documentType,
     name,
-    file_name: file.name,
+    file_name: safeFileName,
     storage_path: storagePath,
     mime_type: contentType,
     size_bytes: file.size,
@@ -286,7 +305,7 @@ export async function createDocumentSignedUrlForUser(
   const { data, error: signedUrlError } = await supabase.storage
     .from(DOCUMENTS_BUCKET)
     .createSignedUrl(document.storage_path, SIGNED_URL_TTL_SECONDS, {
-      download: document.file_name,
+      download: sanitizeFileName(document.file_name),
     });
   if (signedUrlError || !data?.signedUrl)
     return {

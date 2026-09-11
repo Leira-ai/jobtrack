@@ -149,6 +149,7 @@ export function CalendarWorkspace({
   );
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [conflictWarning, setConflictWarning] = useState<string | null>(null);
   const [notice, setNotice] = useState("");
   const calendarDays = useMemo(
     () =>
@@ -186,9 +187,28 @@ export function CalendarWorkspace({
     anchor.click();
     URL.revokeObjectURL(url);
   }
+  const intervalsOverlap = (
+    firstStart: string,
+    firstEnd: string,
+    secondStart: string,
+    secondEnd: string,
+  ): boolean => firstStart < secondEnd && secondStart < firstEnd;
+
+  const findConflicts = (
+    startsAt: string,
+    endsAt: string,
+    ignoreId?: string,
+  ): readonly CalendarEvent[] =>
+    events.filter(
+      (event) =>
+        event.id !== (ignoreId ?? editing?.id ?? "") &&
+        intervalsOverlap(event.startsAt, event.endsAt, startsAt, endsAt),
+    );
+
   function openCreate() {
     clearError();
     setSubmitError(null);
+    setConflictWarning(null);
     setEditing(null);
     setForm(emptyForm(selected));
     setFormOpen(true);
@@ -196,6 +216,7 @@ export function CalendarWorkspace({
   function openEdit(event: CalendarEvent) {
     clearError();
     setSubmitError(null);
+    setConflictWarning(null);
     setEditing(event);
     const time = new Intl.DateTimeFormat("en-GB", {
       timeZone: timezone,
@@ -240,6 +261,17 @@ export function CalendarWorkspace({
       applicationId: form.applicationId || undefined,
     };
     try {
+      if (!form.allDay && form.endTime <= form.startTime) {
+        throw new Error("Waktu selesai harus lebih lambat dari waktu mulai.");
+      }
+      const conflicts = findConflicts(startsAt, endsAt, editing?.id);
+      if (conflicts.length > 0 && !conflictWarning) {
+        setConflictWarning(
+          `Perhatian: Jadwal ini bertabrakan dengan agenda “${conflicts[0].title}”. Klik Simpan agenda sekali lagi untuk melanjutkan.`,
+        );
+        setSubmitting(false);
+        return;
+      }
       const savedEvent = await saveEvent(input, editing?.id);
       if (mode === "authenticated" && form.reminder !== "none") {
         if (!editing) setEditing(savedEvent);
@@ -579,9 +611,10 @@ export function CalendarWorkspace({
                   required
                   maxLength={200}
                   value={form.title}
-                  onChange={(change) =>
-                    setForm({ ...form, title: change.target.value })
-                  }
+                  onChange={(change) => {
+                    setConflictWarning(null);
+                    setForm({ ...form, title: change.target.value });
+                  }}
                   className={`${fieldStyles} mt-2`}
                 />
               </label>
@@ -724,6 +757,14 @@ export function CalendarWorkspace({
               {error || submitError ? (
                 <p role="alert" className="text-sm text-red-600">
                   {submitError ?? error}
+                </p>
+              ) : null}
+              {conflictWarning ? (
+                <p
+                  role="status"
+                  className="rounded-xl border border-amber-200 bg-amber-50 px-3.5 py-3 text-xs leading-5 text-amber-800 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-200"
+                >
+                  {conflictWarning}
                 </p>
               ) : null}
             </div>

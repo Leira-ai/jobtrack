@@ -2,7 +2,9 @@ import { describe, expect, it } from "vitest";
 import {
   DEFAULT_MAX_FILE_SIZE_BYTES,
   getFileExtension,
+  sanitizeFileName,
   validateDocumentFile,
+  validateDocumentHeader,
 } from "./file-validation";
 
 describe("file validation", () => {
@@ -63,5 +65,22 @@ describe("file validation", () => {
       "unsupported-extension",
       "unsupported-mime",
     ]);
+  });
+
+  it("sanitizes file names to prevent injection", () => {
+    expect(sanitizeFileName("my resume (1) <v2>?.pdf")).toBe(
+      "my_resume__1___v2__.pdf",
+    );
+  });
+
+  it("validates magic bytes for PDF and DOCX", () => {
+    const validPdf = new Uint8Array([0x25, 0x50, 0x44, 0x46]);
+    const validDocx = new Uint8Array([0x50, 0x4b, 0x03, 0x04]);
+    const invalidHeader = new Uint8Array([0x00, 0x01, 0x02, 0x03]);
+
+    expect(validateDocumentHeader(validPdf, "pdf")).toBe(true);
+    expect(validateDocumentHeader(invalidHeader, "pdf")).toBe(false);
+    expect(validateDocumentHeader(validDocx, "docx")).toBe(true);
+    expect(validateDocumentHeader(invalidHeader, "docx")).toBe(false);
   });
 });

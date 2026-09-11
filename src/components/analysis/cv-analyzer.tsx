@@ -4,6 +4,7 @@ import { useCallback, useMemo, useState, type ChangeEvent } from "react";
 import {
   AlertCircle,
   CheckCircle2,
+  Download,
   FileSearch,
   Lightbulb,
   LoaderCircle,
@@ -37,7 +38,7 @@ const usefulWordCount = (text: string): number =>
     .filter((word) => word.length > 1).length;
 
 const textareaStyles =
-  "min-h-64 w-full resize-y rounded-xl border border-slate-200 bg-slate-50 p-4 font-mono text-sm leading-6 outline-none transition placeholder:text-slate-400 focus:border-teal-600 focus:ring-2 focus:ring-teal-600/15 dark:border-slate-700 dark:bg-slate-950";
+  "min-h-64 w-full resize-y rounded-xl border border-slate-200 bg-slate-50 p-4 font-mono text-sm leading-6 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/15 dark:border-slate-800 dark:bg-slate-950 dark:text-white dark:placeholder:text-slate-500";
 
 type InputKind = "cv" | "job";
 
@@ -50,6 +51,24 @@ export function CvAnalyzer() {
   } | null>(null);
   const [fileError, setFileError] = useState("");
   const [loadingFile, setLoadingFile] = useState<InputKind | null>(null);
+  const [history, setHistory] = useState<
+    Array<{
+      id: string;
+      date: string;
+      score: number;
+      matchedCount: number;
+      missingCount: number;
+    }>
+  >(() => {
+    if (typeof window === "undefined") return [];
+    try {
+      const raw = localStorage.getItem("jobtrack.cv-history.v1");
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  });
+
   const result = useMemo(
     () =>
       submitted
@@ -60,6 +79,36 @@ export function CvAnalyzer() {
         : null,
     [submitted],
   );
+
+  const runAnalysis = useCallback(() => {
+    setSubmitted({ cvText, jobText });
+    const evaluated = analyzeCv({
+      cvText,
+      jobDescriptionText: jobText,
+    });
+    try {
+      const item = {
+        id: String(Date.now()),
+        date: new Intl.DateTimeFormat("id-ID", {
+          day: "numeric",
+          month: "short",
+          hour: "2-digit",
+          minute: "2-digit",
+        }).format(new Date()),
+        score: evaluated.score,
+        matchedCount: evaluated.matchedKeywords.length,
+        missingCount: evaluated.missingKeywords.length,
+      };
+      setHistory((prev) => {
+        const next = [
+          item,
+          ...prev.filter((p) => p.score !== item.score || p.date !== item.date),
+        ].slice(0, 5);
+        localStorage.setItem("jobtrack.cv-history.v1", JSON.stringify(next));
+        return next;
+      });
+    } catch {}
+  }, [cvText, jobText]);
   const ready = usefulWordCount(cvText) >= 20 && usefulWordCount(jobText) >= 10;
 
   const handleFile = useCallback(
@@ -153,7 +202,7 @@ export function CvAnalyzer() {
         </button>
         <button
           type="button"
-          onClick={() => setSubmitted({ cvText, jobText })}
+          onClick={runAnalysis}
           disabled={!ready || loadingFile !== null}
           className={buttonStyles.primary}
         >
@@ -165,6 +214,45 @@ export function CvAnalyzer() {
       ) : (
         <EmptyResult />
       )}
+      {history.length > 0 ? (
+        <Card>
+          <CardTitle
+            title="Riwayat analisis lokal"
+            description="Maksimal 5 analisis terakhir, hanya tersimpan di browser ini."
+            action={
+              <button
+                type="button"
+                className={buttonStyles.ghost}
+                onClick={() => {
+                  localStorage.removeItem("jobtrack.cv-history.v1");
+                  setHistory([]);
+                }}
+              >
+                Hapus riwayat
+              </button>
+            }
+          />
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
+            {history.map((item) => (
+              <article
+                key={item.id}
+                className="rounded-xl border border-slate-200 p-3 dark:border-slate-800"
+              >
+                <p className="text-xs text-slate-500">{item.date}</p>
+                <p className="mt-1 text-2xl font-bold text-blue-600 dark:text-blue-400">
+                  {item.score}
+                  <span className="text-xs font-normal text-slate-400">
+                    /100
+                  </span>
+                </p>
+                <p className="mt-1 text-xs text-slate-500">
+                  {item.matchedCount} cocok · {item.missingCount} kurang
+                </p>
+              </article>
+            ))}
+          </div>
+        </Card>
+      ) : null}
       <p className="text-center text-xs leading-5 text-slate-400">
         Ini bukan simulasi ATS dan tidak menjamin hasil rekrutmen. Jangan
         gunakan skor untuk merangking kandidat atau menggantikan penilaian
@@ -242,10 +330,49 @@ function DocumentInput({
   );
 }
 
+function downloadAnalysisSummary(result: ReturnType<typeof analyzeCv>) {
+  const lines = [
+    "HASIL ANALISIS KECOCOKAN CV - JOBTRACK",
+    `Waktu: ${new Intl.DateTimeFormat("id-ID", { dateStyle: "full", timeStyle: "medium" }).format(new Date())}`,
+    `Skor Total: ${result.score}/100`,
+    "",
+    "--- RINCIAN PENILAIAN ---",
+    ...result.checks.map(
+      (c) =>
+        `• ${c.label}: ${c.earned}/${c.weight} poin (${c.passed ? "Lulus" : "Perlu ditingkatkan"})\n  ${c.feedback}`,
+    ),
+    "",
+    "--- ISTILAH COCOK ---",
+    result.matchedKeywords.length
+      ? result.matchedKeywords.join(", ")
+      : "Tidak ada istilah cocok",
+    "",
+    "--- ISTILAH YANG BELUM DITEMUKAN ---",
+    result.missingKeywords.length
+      ? result.missingKeywords.join(", ")
+      : "Tidak ada istilah hilang",
+    "",
+    "--- SARAN PENYUNTINGAN ---",
+    ...result.suggestions.map((s) => `• ${s}`),
+    "",
+    "Catatan: Hasil analisis ini bersifat indikatif dan tidak menggantikan evaluasi rekruter manusia.",
+  ];
+
+  const blob = new Blob([lines.join("\n")], {
+    type: "text/plain;charset=utf-8",
+  });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `evaluasi-cv-${new Date().toISOString().slice(0, 10)}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 function EmptyResult() {
   return (
     <Card className="min-h-56 flex-col items-center justify-center text-center">
-      <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-teal-50 text-teal-700 dark:bg-teal-950 dark:text-teal-300">
+      <span className="mx-auto grid size-14 place-items-center rounded-2xl bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-300">
         <Target className="size-7" aria-hidden="true" />
       </span>
       <h2 className="mt-5 font-semibold">Hasil akan muncul di sini</h2>
@@ -271,7 +398,7 @@ function AnalysisResult({
         <div
           className="relative mx-auto mt-5 grid size-36 place-items-center rounded-full"
           style={{
-            background: `conic-gradient(rgb(13 148 136) ${result.score}%, rgb(226 232 240) 0)`,
+            background: `conic-gradient(rgb(37 99 235) ${result.score}%, rgb(226 232 240) 0)`,
           }}
           aria-label={`Skor ${result.score} dari 100`}
         >
@@ -282,13 +409,22 @@ function AnalysisResult({
             </div>
           </div>
         </div>
-        <button
-          type="button"
-          onClick={onReset}
-          className={`${buttonStyles.secondary} mt-5`}
-        >
-          <RotateCcw className="size-4" aria-hidden="true" /> Mulai ulang
-        </button>
+        <div className="mt-5 flex flex-wrap justify-center gap-2">
+          <button
+            type="button"
+            onClick={() => downloadAnalysisSummary(result)}
+            className={buttonStyles.primary}
+          >
+            <Download className="size-4" aria-hidden="true" /> Unduh ringkasan
+          </button>
+          <button
+            type="button"
+            onClick={onReset}
+            className={buttonStyles.secondary}
+          >
+            <RotateCcw className="size-4" aria-hidden="true" /> Mulai ulang
+          </button>
+        </div>
         <p className="mt-5 text-left text-xs leading-5 text-slate-500">
           {result.disclaimer}
         </p>
@@ -304,7 +440,7 @@ function AnalysisResult({
               <div key={check.id} className="flex gap-3">
                 {check.passed ? (
                   <CheckCircle2
-                    className="mt-0.5 size-5 shrink-0 text-teal-600"
+                    className="mt-0.5 size-5 shrink-0 text-blue-600 dark:text-blue-400"
                     aria-hidden="true"
                   />
                 ) : (

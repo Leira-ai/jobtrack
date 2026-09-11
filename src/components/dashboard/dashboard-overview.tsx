@@ -11,6 +11,7 @@ import {
   Plus,
   TrendingUp,
 } from "lucide-react";
+import type { CalendarEvent, JobTask } from "@/types";
 import { demoEvents, demoTasks } from "@/data";
 import {
   statusLabels,
@@ -27,25 +28,44 @@ import {
 } from "@/components/dashboard/ui";
 import { formatDate } from "@/components/dashboard/utils";
 
-export function DashboardOverview() {
+interface DashboardOverviewProps {
+  readonly initialEvents?: readonly CalendarEvent[];
+  readonly initialTasks?: readonly JobTask[];
+  readonly timezone?: string;
+}
+
+export function DashboardOverview({
+  initialEvents,
+  initialTasks,
+  timezone = "Asia/Jakarta",
+}: DashboardOverviewProps = {}) {
   const { applications, mode, profile } = useApplications();
   const stats = calculateApplicationStats(applications);
-  const activeTasks =
-    mode === "demo"
-      ? demoTasks.filter((task) => task.status !== "done").slice(0, 4)
-      : [];
+  const activeTasks = (initialTasks ?? (mode === "demo" ? demoTasks : []))
+    .filter((task) => task.status !== "done")
+    .slice(0, 4);
+  const displayEvents = (
+    initialEvents ?? (mode === "demo" ? demoEvents : [])
+  ).slice(0, 4);
   const recentApps = [...applications]
     .filter((application) => !application.archivedAt)
     .sort((left, right) => right.updatedAt.localeCompare(left.updatedAt))
     .slice(0, 5);
   const submittedCount = stats.submitted;
   const activityPeriod = `${stats.byMonth.length} bulan terakhir`;
+  const todayFormatted = new Intl.DateTimeFormat("id-ID", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date());
+
   return (
     <div className="space-y-6 sm:space-y-8">
       <PageHeader
-        eyebrow="Selasa, 8 September 2026"
+        eyebrow={todayFormatted}
         title={`Selamat datang kembali, ${profile?.displayName.split(" ")[0] ?? "Alya"}`}
-        description="Tiga proses rekrutmen membutuhkan perhatianmu minggu ini. Jaga momentum, satu langkah pada satu waktu."
+        description="Pantau proses rekrutmenmu. Jaga momentum, satu langkah pada satu waktu."
         actions={
           <Link href="/dashboard/lamaran" className={buttonStyles.primary}>
             <Plus className="size-4" /> Tambah lamaran
@@ -116,7 +136,7 @@ export function DashboardOverview() {
             action={
               <Link
                 href="/dashboard/statistik"
-                className="text-sm font-semibold text-teal-700 hover:underline dark:text-teal-400"
+                className="text-sm font-semibold text-blue-600 hover:underline dark:text-blue-400"
               >
                 Lihat statistik
               </Link>
@@ -139,7 +159,7 @@ export function DashboardOverview() {
                     {month.count}
                   </span>
                   <div
-                    className="group relative mx-auto w-full max-w-12 rounded-t-lg bg-teal-600 transition hover:bg-teal-500"
+                    className="group relative mx-auto w-full max-w-12 rounded-t-lg bg-blue-600 transition hover:bg-blue-500"
                     style={{ height: `${height}%` }}
                     title={`${month.count} lamaran`}
                   />
@@ -160,21 +180,23 @@ export function DashboardOverview() {
             action={
               <Link
                 href="/dashboard/kalender"
-                className="text-sm font-semibold text-teal-700 hover:underline dark:text-teal-400"
+                className="text-sm font-semibold text-blue-600 hover:underline dark:text-blue-400"
               >
                 Buka kalender
               </Link>
             }
           />
           <div className="space-y-3">
-            {(mode === "demo" ? demoEvents : []).slice(0, 4).map((event) => (
+            {displayEvents.map((event) => (
               <div
                 key={event.id}
                 className="flex gap-3 rounded-xl border border-slate-100 p-3 dark:border-slate-800"
               >
                 <div className="grid size-11 shrink-0 place-items-center rounded-xl bg-slate-100 text-center dark:bg-slate-800">
                   <span className="text-[10px] font-bold uppercase text-slate-400">
-                    Sep
+                    {new Intl.DateTimeFormat("id-ID", {
+                      month: "short",
+                    }).format(new Date(event.startsAt))}
                   </span>
                   <span className="-mt-2 text-sm font-bold">
                     {new Date(event.startsAt).getDate()}
@@ -189,6 +211,7 @@ export function DashboardOverview() {
                     {event.allDay
                       ? "Sepanjang hari"
                       : new Intl.DateTimeFormat("id-ID", {
+                          timeZone: timezone,
                           hour: "2-digit",
                           minute: "2-digit",
                         }).format(new Date(event.startsAt))}{" "}
@@ -209,7 +232,7 @@ export function DashboardOverview() {
             action={
               <Link
                 href="/dashboard/lamaran"
-                className="text-sm font-semibold text-teal-700 hover:underline dark:text-teal-400"
+                className="text-sm font-semibold text-blue-600 hover:underline dark:text-blue-400"
               >
                 Lihat semua
               </Link>
@@ -254,7 +277,7 @@ export function DashboardOverview() {
             action={
               <Link
                 href="/dashboard/tugas"
-                className="text-sm font-semibold text-teal-700 hover:underline dark:text-teal-400"
+                className="text-sm font-semibold text-blue-600 hover:underline dark:text-blue-400"
               >
                 Kelola
               </Link>

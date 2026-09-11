@@ -31,12 +31,21 @@ const colors = [
   "bg-slate-500",
 ];
 
-export function StatisticsDashboard() {
-  const { applications } = useApplications();
+interface StatisticsDashboardProps {
+  readonly referenceDate?: Date;
+}
+
+export function StatisticsDashboard({
+  referenceDate,
+}: StatisticsDashboardProps = {}) {
+  const { applications, mode } = useApplications();
   const [period, setPeriod] = useState("6");
   const [source, setSource] = useState("all");
   const filtered = useMemo(() => {
-    const cutoff = new Date("2026-09-08T00:00:00Z");
+    const baseDate =
+      referenceDate ??
+      (mode === "demo" ? new Date("2026-09-08T00:00:00Z") : new Date());
+    const cutoff = new Date(baseDate);
     cutoff.setMonth(cutoff.getMonth() - Number(period));
     return applications.filter(
       (application) =>
@@ -44,7 +53,7 @@ export function StatisticsDashboard() {
         (source === "all" || application.source === source) &&
         (!application.appliedAt || new Date(application.appliedAt) >= cutoff),
     );
-  }, [applications, period, source]);
+  }, [applications, mode, period, referenceDate, source]);
   const stats = calculateApplicationStats(filtered);
   const sources = [...new Set(applications.map((item) => item.source))];
   const maxMonthly = Math.max(1, ...stats.byMonth.map((item) => item.count));
