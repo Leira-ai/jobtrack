@@ -28,6 +28,7 @@ import {
   PageHeader,
 } from "@/components/dashboard/ui";
 import { cn } from "@/components/dashboard/utils";
+import { SubscriptionCard } from "@/components/settings/subscription-card";
 import { createClient } from "@/lib/supabase/client";
 import {
   JOBTRACK_STORAGE_KEY,
@@ -207,6 +208,7 @@ export function SettingsPanel({ mode, profile }: SettingsPanelProps) {
       />
       <div className="grid gap-6 xl:grid-cols-[1fr_0.85fr]">
         <div className="space-y-6">
+          <SubscriptionCard tier="free" />
           <Card>
             <CardTitle
               title="Profil"
