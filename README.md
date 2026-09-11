@@ -230,7 +230,9 @@ Hasil lokal terbaru pada 10 September 2026 (snapshot, bukan jaminan run berikutn
 | Supabase DB lint                       | tidak ada schema error                                                                                      |
 | npm production audit                   | **0 vulnerability**                                                                                         |
 
-CI di `.github/workflows/ci.yml` memiliki job quality (format/lint/typecheck/coverage/build/audit), browser (Playwright terhadap build production), dan Supabase integration (local stack, reset tanpa seed, DB lint, pgTAP, two-user test). Workflow dipicu untuk pull request dan push ke `main`, tetapi karena belum ada remote GitHub publik, tidak ada run hosted yang dapat ditautkan.
+CI di `.github/workflows/ci.yml` memiliki job quality (format/lint/typecheck/coverage/build/audit), browser (Playwright terhadap build production), dan Supabase integration (local stack, reset tanpa seed, DB lint, pgTAP, two-user test). Workflow dipicu untuk pull request dan push ke `main`.
+
+**Status CI:** ✅ Run terbaru ([`docs: update README...`](https://github.com/Leira-ai/jobtrack/actions/runs/34575387192), 11 Sep 2026, 3m12s) success untuk semua jobs.
 
 ## Migrasi dan deployment
 
@@ -245,7 +247,25 @@ npm run test:integration
 
 Seed default opsional berisi data fiktif, tidak membuat Auth user, dan dapat membuat metadata dokumen tanpa object Storage. Migration yang sudah dibagikan harus forward-only; gunakan migration kompensasi atau expand-and-contract, jangan edit history yang telah diterapkan.
 
-Belum ada deployment publik. Sebelum production perlu dibuat project Supabase staging/production, menerapkan migration, mengatur Site URL/callback Auth, SMTP produksi, environment deployment, backup/restore, secret rotation, dan smoke test dua user/Storage. Jangan menjalankan `supabase db reset` pada remote. Lihat [panduan deployment](docs/deployment.md).
+## Production
+
+**URL:** [https://jobtrack-ebon.vercel.app](https://jobtrack-ebon.vercel.app) | **Repo:** [https://github.com/Leira-ai/jobtrack](https://github.com/Leira-ai/jobtrack)
+
+Smoke test production (11 Sep 2026):
+
+| Alur            | Hasil                                                                                  |
+| --------------- | -------------------------------------------------------------------------------------- |
+| Landing         | ✅ 200, konten render                                                                  |
+| Public routes   | ✅ `/login`, `/register`, `/forgot-password`, `/privacy`, `/terms` semua 200           |
+| Protected route | ✅ `/dashboard` 307 → `/login`                                                         |
+| Demo mode       | ✅ `/dashboard?demo=true` 200 berisi 25 lamaran, 17 aktif, 8 interview, 2 offer        |
+| Analisis CV     | ✅ `/dashboard/analisis-cv?demo=true` menjelaskan skor; tidak mengirim ke AI eksternal |
+| Kalender/tugas  | ✅ `/dashboard/kalender?demo=true`, `/dashboard/tugas?demo=true` berfungsi             |
+| Screenshots     | ✅ `public/screenshots/prod-landing-desktop.png`, `prod-dashboard-mobile.png`          |
+
+- Supabase Auth terkonfigurasi dengan site_url `https://jobtrack-ebon.vercel.app` dan redirect allowlist `https://jobtrack-ebon.vercel.app/**`.
+- Payload terbatas: dokumen akun maksimal PDF/DOCX 10 MiB; ekspor JSON tidak menyertakan byte Storage atau extracted text; registrasi publik bergantung pada delivery email Supabase free-tier.
+- Jangan menjalankan `supabase db reset` pada remote. Lihat [panduan deployment](docs/deployment.md).
 
 ## Keamanan, privasi, dan free tier
 
@@ -257,7 +277,7 @@ Belum ada deployment publik. Sebelum production perlu dibuat project Supabase st
 
 ## Keterbatasan dan pekerjaan tersisa
 
-- Belum ada remote/repository publik, hosted Supabase, URL deployment, Auth/SMTP production, production smoke test, atau screenshot production publik.
+- Registrasi publik bergantung pada delivery email Supabase free-tier; reset/konfirmasi email belum diverifikasi dengan akun sekali pakai di production.
 - Ringkasan dashboard utama masih memuat copy tanggal/hint fiktif dan belum menampilkan agenda/tugas akun, walau workspace domain sudah memakai Supabase.
 - UI belum menyediakan form untuk membuat reminder; create server action/repository dan pusat baca/tutup sudah tersedia.
 - Reminder hanya foreground/in-app; tidak ada background delivery, push, atau email.
