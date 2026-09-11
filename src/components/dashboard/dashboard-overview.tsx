@@ -26,6 +26,7 @@ import {
   CardTitle,
   PageHeader,
 } from "@/components/dashboard/ui";
+import { OnboardingChecklist } from "@/components/dashboard/onboarding-checklist";
 import { formatDate } from "@/components/dashboard/utils";
 
 interface DashboardOverviewProps {
@@ -71,6 +72,11 @@ export function DashboardOverview({
             <Plus className="size-4" /> Tambah lamaran
           </Link>
         }
+      />
+
+      <OnboardingChecklist
+        applications={applications}
+        tasks={initialTasks ?? (mode === "demo" ? demoTasks : [])}
       />
 
       <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">

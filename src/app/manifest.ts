@@ -6,10 +6,10 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "JobTrack",
     description:
       "Kelola lamaran, wawancara, tugas, dan dokumen pencarian kerja dalam satu tempat.",
-    start_url: "/",
+    start_url: "/dashboard",
     display: "standalone",
-    background_color: "#fbfcf8",
-    theme_color: "#123c2d",
+    background_color: "#f1f5f9",
+    theme_color: "#0f2a5c",
     lang: "id",
     categories: ["productivity", "business"],
     icons: [
