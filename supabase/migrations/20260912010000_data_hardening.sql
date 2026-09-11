@@ -1,13 +1,27 @@
 begin;
 
+create or replace function public.tags_items_within_limit(values text[])
+returns boolean
+language plpgsql
+immutable
+as $$
+declare
+  item text;
+begin
+  if values is null then return true; end if;
+  foreach item in array values loop
+    if char_length(item) > 80 then return false; end if;
+  end loop;
+  return true;
+end;
+$$;
+
 alter table public.companies
   add constraint companies_name_trimmed_not_empty check (name = btrim(name));
 
 alter table public.applications
   add constraint applications_tags_count_limit check (coalesce(array_length(tags, 1), 0) <= 30),
-  add constraint applications_tags_item_length check (
-    not exists (select 1 from unnest(tags) as tag where char_length(tag) > 80)
-  ),
+  add constraint applications_tags_item_length check (public.tags_items_within_limit(tags)),
   add constraint applications_description_length check (job_description is null or char_length(job_description) <= 30000),
   add constraint applications_notes_length check (notes is null or char_length(notes) <= 30000);
 
