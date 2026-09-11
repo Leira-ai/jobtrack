@@ -93,5 +93,13 @@ export async function handleAuthCallback(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  return NextResponse.redirect(new URL(nextPath, url.origin));
+  const successResponse = NextResponse.redirect(new URL(nextPath, url.origin));
+  successResponse.cookies.set("jobtrack-demo", "", {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: url.protocol === "https:",
+    path: "/",
+    maxAge: 0,
+  });
+  return successResponse;
 }

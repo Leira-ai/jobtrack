@@ -158,7 +158,8 @@ export function DashboardShell({
     setLoggingOut(true);
     const supabase = createClient();
     if (supabase) await supabase.auth.signOut();
-    router.replace("/login");
+    document.cookie = "jobtrack-demo=; path=/; max-age=0; SameSite=Lax;";
+    router.replace("/login?demo=false");
     router.refresh();
   };
   return (

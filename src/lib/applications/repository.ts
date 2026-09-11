@@ -162,7 +162,16 @@ export class ApplicationsRepository {
       .insert({ name: normalized })
       .select("id")
       .single();
-    if (createError || !created) throw new Error(message(createError));
+    if (createError || !created) {
+      const { data: retryExisting } = await this.supabase
+        .from("companies")
+        .select("id")
+        .ilike("name", normalized)
+        .limit(1)
+        .maybeSingle();
+      if (retryExisting) return retryExisting.id;
+      throw new Error(message(createError));
+    }
     return created.id;
   }
 

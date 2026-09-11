@@ -72,6 +72,8 @@ type ActivityType =
   | "task"
   | "status_change"
   | "other";
+type SubscriptionTier = "free" | "pro" | "lifetime";
+type SubscriptionStatus = "active" | "trialing" | "past_due" | "canceled";
 
 type ProfileRow = {
   id: string;
@@ -228,6 +230,20 @@ type ReminderRow = {
   read_at: string | null;
   dismissed_at: string | null;
   created_at: string;
+};
+type SubscriptionRow = {
+  id: string;
+  user_id: string;
+  plan_tier: SubscriptionTier;
+  status: SubscriptionStatus;
+  gateway: string | null;
+  gateway_customer_id: string | null;
+  gateway_subscription_id: string | null;
+  current_period_start: string;
+  current_period_end: string | null;
+  cancel_at_period_end: boolean;
+  created_at: string;
+  updated_at: string;
 };
 
 type TableDefinition<Row, Insert, Update> = {
@@ -454,6 +470,24 @@ export type Database = {
         },
         Partial<Omit<ActivityRow, "id" | "user_id" | "created_at">>
       >;
+      subscriptions: TableDefinition<
+        SubscriptionRow,
+        {
+          id?: string;
+          user_id?: string;
+          plan_tier?: SubscriptionTier;
+          status?: SubscriptionStatus;
+          gateway?: string | null;
+          gateway_customer_id?: string | null;
+          gateway_subscription_id?: string | null;
+          current_period_start?: string;
+          current_period_end?: string | null;
+          cancel_at_period_end?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        },
+        Partial<Omit<SubscriptionRow, "id" | "user_id" | "created_at">>
+      >;
     };
     Views: Record<string, never>;
     Functions: {
@@ -486,6 +520,8 @@ export type Database = {
       task_priority: TaskPriority;
       task_status: TaskStatus;
       activity_type: ActivityType;
+      subscription_tier: SubscriptionTier;
+      subscription_status: SubscriptionStatus;
     };
     CompositeTypes: Record<string, never>;
   };

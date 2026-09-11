@@ -165,3 +165,22 @@ export type NewTask = Omit<JobTask, "id" | "createdAt" | "updatedAt">;
 export type TaskPatch = Partial<Omit<JobTask, "id" | "createdAt">>;
 export type NewDocument = Omit<JobDocument, "id" | "createdAt" | "updatedAt">;
 export type DocumentPatch = Partial<Omit<JobDocument, "id" | "createdAt">>;
+
+export type SubscriptionTier = "free" | "pro" | "lifetime";
+export type SubscriptionStatus =
+  | "active"
+  | "trialing"
+  | "past_due"
+  | "canceled";
+
+export interface UserSubscription {
+  readonly id: string;
+  readonly userId: string;
+  readonly planTier: SubscriptionTier;
+  readonly status: SubscriptionStatus;
+  readonly gateway?: string;
+  readonly currentPeriodEnd?: string;
+  readonly cancelAtPeriodEnd: boolean;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+}

@@ -57,15 +57,12 @@ export async function proxy(request: NextRequest) {
     return cleanResponse;
   }
 
-  // Demo mode is intentionally isolated in browser storage and never reads or
-  // mutates an authenticated user's Supabase records.
-  if (demoMode && matchesRoute(request.nextUrl.pathname, PROTECTED_ROUTES)) {
-    return response;
-  }
-
   // Missing env is a valid state for static previews and CI. Non-demo
   // protected pages still redirect instead of bypassing authentication.
   if (!env) {
+    if (demoMode && matchesRoute(request.nextUrl.pathname, PROTECTED_ROUTES)) {
+      return response;
+    }
     if (matchesRoute(request.nextUrl.pathname, PROTECTED_ROUTES)) {
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("next", request.nextUrl.pathname);
@@ -98,6 +95,15 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
   const { pathname, search } = request.nextUrl;
+
+  // If user is authenticated, prioritize their real account unless demo is explicitly requested (?demo=true)
+  const effectiveDemoMode = user ? requestedDemo : demoMode;
+
+  // Demo mode is intentionally isolated in browser storage and never reads or
+  // mutates an authenticated user's Supabase records.
+  if (effectiveDemoMode && matchesRoute(pathname, PROTECTED_ROUTES)) {
+    return response;
+  }
 
   if (!user && matchesRoute(pathname, PROTECTED_ROUTES)) {
     const loginUrl = new URL("/login", request.url);
