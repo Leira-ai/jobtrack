@@ -4,11 +4,15 @@ JobTrack adalah aplikasi web berbahasa Indonesia untuk mengelola lamaran kerja, 
 
 ## Status publik
 
-- **URL produksi:** belum dideploy.
-- **Backend hosted:** belum ada project Supabase hosted yang didokumentasikan atau diverifikasi.
-- **Source hosting:** workspace lokal ini tidak memiliki Git remote atau repository GitHub publik.
-- **Auth/SMTP produksi dan smoke test produksi:** belum dikonfigurasi atau dijalankan.
-- **Screenshot produksi:** belum ada URL publik. Capture lokal ada di `artifacts/`, tetapi direktori tersebut diabaikan Git dan bersifat transien; capture final pasca-fitur untuk publikasi masih pending. Gambar lama tidak dianggap bukti produksi.
+- **URL produksi:** [https://jobtrack-ebon.vercel.app](https://jobtrack-ebon.vercel.app)
+- **Backend hosted:** project Supabase `lhzsrkkcxcyvweodmsce`
+- **Source hosting:** [https://github.com/Leira-ai/jobtrack](https://github.com/Leira-ai/jobtrack) (branch `main`)
+- **Auth/SMTP produksi:** Supabase Auth terkonfigurasi dengan site_url `https://jobtrack-ebon.vercel.app` dan redirect allowlist `https://jobtrack-ebon.vercel.app/**`. Mode demo aktif melalui `/dashboard?demo=true`.
+- **Screenshot produksi:**
+
+  ![Landing page desktop](public/screenshots/prod-landing-desktop.png)
+
+  ![Dashboard demo mobile](public/screenshots/prod-dashboard-mobile.png)
 
 ## Fitur yang tersedia
 
@@ -34,7 +38,7 @@ JobTrack adalah aplikasi web berbahasa Indonesia untuk mengelola lamaran kerja, 
 | Pengingat             | Tabel `reminders` dengan RLS tersedia; pusat pengingat menampilkan rentang jatuh tempo sampai 72 jam ke depan. Pembuatan reminder tersedia di server action/repository, tetapi UI penjadwalan khusus belum diekspos. |
 | Mode demo             | Terisolasi dari Supabase, memakai fixture fiktif dan `localStorage`; tidak memerlukan akun.                                                                                                                          |
 | Analisis CV vs JD     | Aktif di browser dengan skor berbobot 100, istilah bilingual, PDF.js, dan Mammoth; bukan ATS atau AI generatif.                                                                                                      |
-| Deployment            | Belum ada deployment, hosted Supabase, SMTP produksi, smoke test produksi, atau screenshot produksi publik.                                                                                                          |
+| Deployment            | ✅ Vercel production (`jobtrack-ebon.vercel.app`), CI success, smoke test lengkap.                                                                                                                                   |
 
 ## Semantik status dan arsip
 
@@ -115,7 +119,14 @@ Alur dokumen akun menerima **PDF dan DOCX saja**, masing-masing maksimal **10 Mi
 - Supabase CLI melalui `npx`
 - Chromium Playwright untuk E2E (`npx playwright install chromium`)
 
-Workspace ini belum memiliki remote publik, jadi tidak ada URL clone yang dapat diberikan. Dari checkout lokal:
+Clone dari GitHub:
+
+```bash
+git clone https://github.com/Leira-ai/jobtrack.git
+cd jobtrack
+```
+
+Dari checkout lokal:
 
 ```bash
 npm ci
