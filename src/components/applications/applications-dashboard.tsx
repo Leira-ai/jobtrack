@@ -236,7 +236,7 @@ export function ApplicationsDashboard() {
               value: stats.offers,
               icon: Trophy,
               style:
-                "text-emerald-700 bg-emerald-50 dark:bg-emerald-950 dark:text-emerald-300",
+                "text-slate-700 bg-slate-50 dark:bg-slate-950 dark:text-slate-300",
             },
             {
               label: "Diarsipkan",

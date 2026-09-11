@@ -26,7 +26,7 @@ export function SiteHeader() {
             <a
               key={item.href}
               href={item.href}
-              className="rounded-full border border-transparent px-3.5 py-2 text-sm font-extrabold text-muted transition hover:border-ink/15 hover:bg-surface hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              className="rounded-full border border-transparent px-3.5 py-2 text-sm font-extrabold text-muted transition hover:border-ink/15 hover:bg-surface hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               {item.label}
             </a>
@@ -35,13 +35,13 @@ export function SiteHeader() {
         <div className="hidden items-center gap-2 md:flex">
           <Link
             href="/login"
-            className="rounded-full border-2 border-ink/15 bg-surface px-5 py-2.5 text-sm font-extrabold text-ink transition hover:border-ink/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            className="rounded-full border-2 border-ink/15 bg-surface px-5 py-2.5 text-sm font-extrabold text-ink transition hover:border-ink/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           >
             Masuk
           </Link>
           <Link
             href="/register"
-            className="rounded-full border-2 border-ink bg-ink px-6 py-2.5 text-sm font-extrabold uppercase tracking-wide text-accent shadow-card transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            className="rounded-full border-2 border-ink bg-ink px-6 py-2.5 text-sm font-extrabold uppercase tracking-wide text-white shadow-card transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             Mulai gratis
           </Link>
@@ -85,7 +85,7 @@ export function SiteHeader() {
               </Link>
               <Link
                 href="/register"
-                className="rounded-2xl border-2 border-ink bg-accent px-4 py-3 text-center text-sm font-extrabold uppercase tracking-wide text-ink shadow-card"
+                className="rounded-2xl border-2 border-ink bg-secondary px-4 py-3 text-center text-sm font-extrabold uppercase tracking-wide text-ink shadow-card"
               >
                 Mulai gratis
               </Link>

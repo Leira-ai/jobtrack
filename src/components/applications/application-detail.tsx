@@ -479,7 +479,7 @@ export function ApplicationDetail({ applicationId }: ApplicationDetailProps) {
                       {task.status === "done" ? (
                         <CheckCircle2
                           aria-hidden="true"
-                          className="mt-0.5 size-4 shrink-0 text-emerald-600"
+                          className="mt-0.5 size-4 shrink-0 text-slate-600"
                         />
                       ) : (
                         <Clock3

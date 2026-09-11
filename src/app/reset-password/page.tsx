@@ -17,7 +17,7 @@ export default function ResetPasswordPage() {
           Tautan sudah kedaluwarsa?{" "}
           <Link
             href="/forgot-password"
-            className="font-bold text-emerald-800 hover:underline"
+            className="font-bold text-slate-800 hover:underline"
           >
             Minta tautan baru
           </Link>

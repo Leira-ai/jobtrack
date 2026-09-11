@@ -11,7 +11,7 @@ export function SiteFooter() {
             Ruang kerja pribadi untuk mengelola pencarian kerja dengan lebih
             berani dan terarah.
           </p>
-          <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-1.5 text-xs font-extrabold uppercase tracking-widest text-accent">
+          <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-secondary/10 px-4 py-1.5 text-xs font-extrabold uppercase tracking-widest text-white">
             Kelola lamaran, persiapkan peluang
           </p>
         </div>
@@ -21,31 +21,31 @@ export function SiteFooter() {
         >
           <a
             href="#fitur"
-            className="rounded-full border border-white/15 px-4 py-2 transition hover:border-accent hover:text-accent"
+            className="rounded-full border border-white/15 px-4 py-2 transition hover:border-accent hover:text-white"
           >
             Fitur
           </a>
           <a
             href="#cara-kerja"
-            className="rounded-full border border-white/15 px-4 py-2 transition hover:border-accent hover:text-accent"
+            className="rounded-full border border-white/15 px-4 py-2 transition hover:border-accent hover:text-white"
           >
             Cara kerja
           </a>
           <Link
             href="/privacy"
-            className="rounded-full border border-white/15 px-4 py-2 transition hover:border-accent hover:text-accent"
+            className="rounded-full border border-white/15 px-4 py-2 transition hover:border-accent hover:text-white"
           >
             Privasi
           </Link>
           <Link
             href="/terms"
-            className="rounded-full border border-white/15 px-4 py-2 transition hover:border-accent hover:text-accent"
+            className="rounded-full border border-white/15 px-4 py-2 transition hover:border-accent hover:text-white"
           >
             Ketentuan
           </Link>
           <a
             href="mailto:halo@jobtrack.id"
-            className="rounded-full border-2 border-accent bg-accent px-4 py-2 text-ink transition hover:-translate-y-0.5"
+            className="rounded-full border-2 border-accent bg-secondary px-4 py-2 text-ink transition hover:-translate-y-0.5"
           >
             Kontak
           </a>

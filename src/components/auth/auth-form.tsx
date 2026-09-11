@@ -24,7 +24,7 @@ interface AuthFormProps {
 }
 
 const fieldClass =
-  "w-full rounded-2xl border-2 border-ink/15 bg-surface px-4 py-3 text-sm font-medium text-ink outline-none transition placeholder:text-muted/70 focus:border-primary focus:ring-4 focus:ring-accent/40 dark:border-white/20 dark:text-white";
+  "w-full rounded-2xl border-2 border-ink/15 bg-surface px-4 py-3 text-sm font-medium text-ink outline-none transition placeholder:text-muted/70 focus:border-primary focus:ring-4 focus:ring-primary/40 dark:border-white/20 dark:text-white";
 
 const modeCopy = {
   login: { button: "Masuk ke JobTrack", loading: "Memproses..." },
@@ -218,20 +218,20 @@ export function AuthForm({ mode }: AuthFormProps) {
             name="terms"
             type="checkbox"
             required
-            className="mt-0.5 size-4 rounded border-ink/30 accent-[#65a30d]"
+            className="mt-0.5 size-4 rounded border-ink/30 accent-[#1d4ed8]"
           />
           <span>
             Saya menyetujui{" "}
             <a
               href="/terms"
-              className="font-extrabold text-primary hover:underline dark:text-accent"
+              className="font-extrabold text-primary hover:underline dark:text-white"
             >
               Ketentuan Layanan
             </a>{" "}
             dan{" "}
             <a
               href="/privacy"
-              className="font-extrabold text-primary hover:underline dark:text-accent"
+              className="font-extrabold text-primary hover:underline dark:text-white"
             >
               Kebijakan Privasi
             </a>
@@ -243,7 +243,7 @@ export function AuthForm({ mode }: AuthFormProps) {
       <button
         type="submit"
         disabled={isLoading}
-        className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border-2 border-ink bg-primary-strong px-5 py-3 text-sm font-extrabold uppercase tracking-wide text-white shadow-lift transition hover:-translate-y-0.5 hover:bg-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent/50 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border-2 border-ink bg-primary-strong px-5 py-3 text-sm font-extrabold uppercase tracking-wide text-white shadow-lift transition hover:-translate-y-0.5 hover:bg-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/50 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isLoading ? <LoaderCircle size={17} className="animate-spin" /> : null}
         {isLoading ? modeCopy[mode].loading : modeCopy[mode].button}
@@ -288,10 +288,10 @@ function StatusMessage({
 }) {
   const style =
     type === "error"
-      ? "border-2 border-rose-900/30 bg-rose-500 text-white"
+      ? "border-2 border-rose-200 bg-rose-400 text-white"
       : type === "success"
-        ? "border-2 border-ink bg-accent text-ink"
-        : "border-2 border-amber-900/30 bg-amber-300 text-amber-950";
+        ? "border-2 border-ink bg-secondary text-ink"
+        : "border-2 border-amber-200/30 bg-amber-100 text-ink";
   const Icon = type === "success" ? CheckCircle2 : AlertCircle;
   return (
     <div

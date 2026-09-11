@@ -20,12 +20,12 @@ import {
 
 const colors = [
   "bg-slate-300",
-  "bg-cyan-500",
+  "bg-cyan-400",
   "bg-blue-500",
   "bg-violet-500",
   "bg-amber-500",
   "bg-orange-500",
-  "bg-emerald-500",
+  "bg-slate-500",
   "bg-teal-600",
   "bg-red-400",
   "bg-slate-500",

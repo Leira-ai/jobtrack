@@ -44,15 +44,15 @@ function Logo({ compact = false }: { compact?: boolean }) {
   return (
     <Link
       href="/dashboard"
-      className="flex items-center gap-3 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      className="flex items-center gap-3 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
       aria-label="JobTrack, ke ringkasan"
     >
-      <span className="grid size-10 shrink-0 rotate-3 place-items-center rounded-2xl border-2 border-ink bg-primary-strong text-accent shadow-card">
+      <span className="grid size-10 shrink-0 rotate-3 place-items-center rounded-2xl border-2 border-ink bg-primary-strong text-white shadow-card">
         <BriefcaseBusiness className="size-5" />
       </span>
       {!compact ? (
         <span className="text-xl font-extrabold tracking-[-0.04em] text-ink dark:text-white">
-          Job<span className="text-primary dark:text-accent">Track</span>
+          Job<span className="text-primary dark:text-white">Track</span>
         </span>
       ) : null}
     </Link>
@@ -82,10 +82,10 @@ function NavLinks({
             onClick={onNavigate}
             title={compact ? item.label : undefined}
             className={cn(
-              "group flex min-h-11 items-center rounded-2xl text-sm font-extrabold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent",
+              "group flex min-h-11 items-center rounded-2xl text-sm font-extrabold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary",
               compact ? "justify-center px-2" : "gap-3 px-3",
               active
-                ? "border-2 border-ink bg-accent text-ink shadow-card dark:border-white/20"
+                ? "border-2 border-ink bg-secondary text-ink shadow-card dark:border-white/20"
                 : "text-muted hover:bg-ink/5 hover:text-ink dark:text-white/60 dark:hover:bg-white/10 dark:hover:text-white",
             )}
           >
@@ -119,7 +119,7 @@ function ThemeButton() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="grid size-11 place-items-center rounded-2xl border-2 border-ink/15 text-ink shadow-card transition hover:-translate-y-0.5 hover:border-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/20 dark:text-white"
+      className="grid size-11 place-items-center rounded-2xl border-2 border-ink/15 text-ink shadow-card transition hover:-translate-y-0.5 hover:border-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:border-white/20 dark:text-white"
       aria-label={dark ? "Gunakan tema terang" : "Gunakan tema gelap"}
     >
       {dark ? <Sun className="size-5" /> : <Moon className="size-5" />}
@@ -174,8 +174,8 @@ export function DashboardShell({
           <NavLinks compact={collapsed} />
         </div>
         {!collapsed && demoMode ? (
-          <div className="mx-3 mb-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-900 dark:bg-amber-950/60">
-            <span className="rounded-full bg-amber-200 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-amber-900 dark:bg-amber-900 dark:text-amber-100">
+          <div className="mx-3 mb-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 dark:border-amber-200 dark:bg-amber-950/60">
+            <span className="rounded-full bg-amber-200 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:bg-amber-900 dark:text-amber-100">
               Mode demo
             </span>
             <p className="mt-3 text-xs leading-5 text-amber-800 dark:text-amber-200">
@@ -232,7 +232,7 @@ export function DashboardShell({
             {demoMode ? (
               <Link
                 href="/login?demo=false"
-                className="hidden min-h-11 items-center gap-2 rounded-2xl border-2 border-ink/15 px-4 text-sm font-extrabold text-primary shadow-card transition hover:-translate-y-0.5 hover:border-ink sm:inline-flex dark:border-white/20 dark:text-accent"
+                className="hidden min-h-11 items-center gap-2 rounded-2xl border-2 border-ink/15 px-4 text-sm font-extrabold text-primary shadow-card transition hover:-translate-y-0.5 hover:border-ink sm:inline-flex dark:border-white/20 dark:text-white"
               >
                 <CircleUserRound aria-hidden="true" className="size-4" />
                 Masuk ke akun
@@ -246,7 +246,7 @@ export function DashboardShell({
             <div className="relative ml-1">
               <button
                 type="button"
-                className="grid size-10 place-items-center rounded-2xl border-2 border-ink bg-primary-strong text-xs font-extrabold text-accent shadow-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="grid size-10 place-items-center rounded-2xl border-2 border-ink bg-primary-strong text-xs font-extrabold text-white shadow-card focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 aria-label={`Buka menu profil ${profile.displayName}`}
                 aria-expanded={profileOpen}
                 onClick={() => setProfileOpen((value) => !value)}

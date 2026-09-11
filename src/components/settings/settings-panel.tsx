@@ -404,7 +404,7 @@ export function SettingsPanel({ mode, profile }: SettingsPanelProps) {
                 "flex items-start gap-3 rounded-xl p-4",
                 mode === "authenticated"
                   ? "bg-teal-50 text-teal-900 dark:bg-teal-950 dark:text-teal-100"
-                  : "bg-amber-50 text-amber-900 dark:bg-amber-950 dark:text-amber-100",
+                  : "bg-amber-50 text-amber-800 dark:bg-amber-950 dark:text-amber-100",
               )}
             >
               <Database className="mt-0.5 size-5 shrink-0" />

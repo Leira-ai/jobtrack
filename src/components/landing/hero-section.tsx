@@ -12,16 +12,16 @@ export function HeroSection() {
   return (
     <section className="relative overflow-hidden bg-background pb-14 pt-10 sm:pb-20 sm:pt-16">
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute -right-24 -top-28 size-[42rem] rounded-[3rem] border-2 border-ink/10 bg-accent/35 blur-[0.5px] [transform:rotate(10deg)]" />
-        <div className="absolute -left-28 top-40 size-[30rem] rounded-[3rem] border-2 border-ink/10 bg-pop/18 [transform:rotate(-8deg)]" />
+        <div className="absolute -right-24 -top-28 size-[42rem] rounded-[3rem] border-2 border-ink/10 bg-secondary/35 blur-[0.5px] [transform:rotate(10deg)]" />
+        <div className="absolute -left-28 top-40 size-[30rem] rounded-[3rem] border-2 border-ink/10 bg-secondary [transform:rotate(-8deg)]" />
         <div className="absolute inset-x-0 top-0 h-[560px] opacity-25 [background-image:radial-gradient(#0b1f14_1.25px,transparent_1.25px)] [background-size:26px_26px] [mask-image:linear-gradient(to_bottom,black,transparent)]" />
       </div>
       <div className="relative mx-auto grid max-w-7xl gap-10 px-5 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-8 lg:px-10">
         <div className="animate-jump text-left">
-          <div className="inline-flex max-w-full items-center gap-2 rounded-full border-2 border-ink bg-accent px-3.5 py-2 text-xs font-extrabold uppercase tracking-wide text-ink shadow-card sm:text-sm">
+          <div className="inline-flex max-w-full items-center gap-2 rounded-full border-2 border-ink bg-secondary px-3.5 py-2 text-xs font-extrabold uppercase tracking-wide text-ink shadow-card sm:text-sm">
             <Zap size={16} className="shrink-0" />
             <span className="truncate">Kelola lamaran tanpa kekacauan</span>
-            <span className="hidden items-center gap-1 rounded-full bg-ink px-2.5 py-1 text-[10px] font-extrabold tracking-widest text-accent sm:inline-flex">
+            <span className="hidden items-center gap-1 rounded-full bg-ink px-2.5 py-1 text-[10px] font-extrabold tracking-widest text-white sm:inline-flex">
               <Sparkles size={12} /> CEPAT
             </span>
           </div>
@@ -32,7 +32,7 @@ export function HeroSection() {
                 Raih kerja terbaikmu.
               </span>
               <span
-                className="absolute inset-x-0 bottom-1 z-0 h-3 -rotate-1 rounded-full bg-accent"
+                className="absolute inset-x-0 bottom-1 z-0 h-3 -rotate-1 rounded-full bg-secondary"
                 aria-hidden="true"
               />
             </span>
@@ -44,13 +44,13 @@ export function HeroSection() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/register"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border-2 border-ink bg-primary-strong px-7 py-3.5 text-sm font-extrabold uppercase tracking-wide text-white shadow-lift transition hover:-translate-y-0.5 hover:bg-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent/50"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border-2 border-ink bg-primary-strong px-7 py-3.5 text-sm font-extrabold uppercase tracking-wide text-white shadow-lift transition hover:-translate-y-0.5 hover:bg-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/50"
             >
               Mulai gratis <ArrowRight size={18} />
             </Link>
             <Link
               href="/dashboard?demo=true"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border-2 border-ink bg-surface px-7 py-3.5 text-sm font-extrabold uppercase tracking-wide text-ink shadow-card transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-accent/40"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border-2 border-ink bg-surface px-7 py-3.5 text-sm font-extrabold uppercase tracking-wide text-ink shadow-card transition hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/40"
             >
               <PlayCircle size={18} /> Lihat demo langsung
             </Link>

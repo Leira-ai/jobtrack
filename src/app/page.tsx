@@ -35,7 +35,7 @@ export default function HomePage() {
   return (
     <div
       lang="id"
-      className="min-h-screen bg-background font-sans text-ink selection:bg-accent selection:text-ink"
+      className="min-h-screen bg-background font-sans text-ink selection:bg-secondary selection:text-ink"
     >
       <script
         type="application/ld+json"
@@ -43,7 +43,7 @@ export default function HomePage() {
       />
       <a
         href="#konten-utama"
-        className="sr-only z-[100] rounded-2xl border-2 border-ink bg-accent px-4 py-3 font-extrabold text-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        className="sr-only z-[100] rounded-2xl border-2 border-ink bg-secondary px-4 py-3 font-extrabold text-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
       >
         Lewati ke konten utama
       </a>

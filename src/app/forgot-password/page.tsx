@@ -17,7 +17,7 @@ export default function ForgotPasswordPage() {
           Sudah ingat kata sandimu?{" "}
           <Link
             href="/login"
-            className="font-bold text-emerald-800 hover:underline"
+            className="font-bold text-slate-800 hover:underline"
           >
             Kembali masuk
           </Link>

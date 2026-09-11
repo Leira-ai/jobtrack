@@ -12,7 +12,7 @@ interface OnboardingFormProps {
 }
 
 const fieldClass =
-  "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 disabled:cursor-not-allowed disabled:bg-slate-50";
+  "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:ring-4 focus:ring-primary500/10 disabled:cursor-not-allowed disabled:bg-slate-50";
 
 export function OnboardingForm({
   initialDisplayName,
@@ -128,7 +128,7 @@ export function OnboardingForm({
       <button
         type="submit"
         disabled={pending}
-        className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#123c2d] px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-[#0d3023] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+        className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-primary-strong px-5 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {pending ? <LoaderCircle size={17} className="animate-spin" /> : null}
         {pending ? "Menyimpan profil..." : "Lanjut ke dashboard"}

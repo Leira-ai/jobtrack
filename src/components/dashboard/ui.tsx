@@ -16,7 +16,7 @@ export function PageHeader({
     <header className="animate-jump flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
       <div className="max-w-2xl">
         {eyebrow ? (
-          <p className="mb-2 inline-flex items-center gap-2 rounded-full border-2 border-ink/10 bg-accent px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em] text-ink dark:border-white/15 dark:text-ink">
+          <p className="mb-2 inline-flex items-center gap-2 rounded-full border-2 border-ink/10 bg-secondary px-3 py-1 text-[11px] font-extrabold uppercase tracking-[0.16em] text-ink dark:border-white/15 dark:text-ink">
             {eyebrow}
           </p>
         ) : null}
@@ -91,12 +91,12 @@ export function Badge({
   const tones = {
     slate:
       "border border-ink/10 bg-slate-100 text-slate-800 dark:border-white/15 dark:bg-white/10 dark:text-white",
-    teal: "border border-ink bg-accent text-ink dark:border-white/20",
+    teal: "border border-ink bg-secondary text-ink dark:border-white/20",
     amber:
-      "border border-amber-900/30 bg-amber-300 text-amber-950 dark:border-amber-200/30 dark:bg-amber-300 dark:text-amber-950",
-    red: "border border-rose-900/30 bg-rose-500 text-white",
-    blue: "border border-blue-900/30 bg-blue-600 text-white",
-    purple: "border border-violet-900/30 bg-violet-600 text-white",
+      "border border-amber-200/30 bg-amber-100 text-ink dark:border-amber-200/30 dark:bg-amber-100 dark:text-ink",
+    red: "border border-rose-200 bg-rose-400 text-white",
+    blue: "border border-blue-200 bg-blue-500 text-white",
+    purple: "border border-indigo-200/30 bg-indigo-500 text-white",
   };
   return (
     <span
@@ -113,17 +113,17 @@ export function Badge({
 
 export const buttonStyles = {
   primary:
-    "inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl border-2 border-ink bg-primary-strong px-5 py-2.5 text-sm font-extrabold uppercase tracking-wide text-white shadow-lift transition hover:-translate-y-0.5 hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/20",
+    "inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl border-2 border-ink bg-primary-strong px-5 py-2.5 text-sm font-extrabold uppercase tracking-wide text-white shadow-lift transition hover:-translate-y-0.5 hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/20",
   secondary:
-    "inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl border-2 border-ink/15 bg-surface px-5 py-2.5 text-sm font-extrabold text-ink shadow-card transition hover:-translate-y-0.5 hover:border-ink/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/20 dark:text-white",
+    "inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl border-2 border-ink/15 bg-surface px-5 py-2.5 text-sm font-extrabold text-ink shadow-card transition hover:-translate-y-0.5 hover:border-ink/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:cursor-not-allowed disabled:opacity-50 dark:border-white/20 dark:text-white",
   danger:
     "inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl border-2 border-rose-950/30 bg-rose-600 px-5 py-2.5 text-sm font-extrabold text-white shadow-card transition hover:-translate-y-0.5 hover:bg-rose-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 disabled:cursor-not-allowed disabled:opacity-50",
   ghost:
-    "inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-extrabold text-muted transition hover:bg-ink/5 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white",
+    "inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl px-4 py-2.5 text-sm font-extrabold text-muted transition hover:bg-ink/5 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary dark:text-white/70 dark:hover:bg-white/10 dark:hover:text-white",
 };
 
 export const fieldStyles =
-  "min-h-12 w-full rounded-2xl border-2 border-ink/15 bg-surface px-4 text-sm font-medium text-ink outline-none transition placeholder:text-muted/70 focus:border-primary focus:ring-4 focus:ring-accent/40 dark:border-white/20 dark:text-white";
+  "min-h-12 w-full rounded-2xl border-2 border-ink/15 bg-surface px-4 text-sm font-medium text-ink outline-none transition placeholder:text-muted/70 focus:border-primary focus:ring-4 focus:ring-primary/40 dark:border-white/20 dark:text-white";
 
 export function EmptyState({
   icon,
@@ -138,7 +138,7 @@ export function EmptyState({
 }) {
   return (
     <div className="flex flex-col items-center px-6 py-12 text-center">
-      <div className="mb-4 grid size-14 place-items-center rounded-3xl border-2 border-ink/10 bg-accent text-ink shadow-card dark:border-white/20">
+      <div className="mb-4 grid size-14 place-items-center rounded-3xl border-2 border-ink/10 bg-secondary text-ink shadow-card dark:border-white/20">
         {icon}
       </div>
       <h3 className="font-semibold text-slate-900 dark:text-white">{title}</h3>

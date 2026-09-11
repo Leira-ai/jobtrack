@@ -17,7 +17,7 @@ export default function LoginPage() {
           Belum punya akun?{" "}
           <Link
             href="/register"
-            className="font-bold text-emerald-800 hover:underline"
+            className="font-bold text-slate-800 hover:underline"
           >
             Daftar gratis
           </Link>
@@ -27,7 +27,7 @@ export default function LoginPage() {
       <div className="mb-2 flex justify-end">
         <Link
           href="/forgot-password"
-          className="rounded-md text-xs font-semibold text-emerald-800 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+          className="rounded-md text-xs font-semibold text-slate-800 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary500"
         >
           Lupa kata sandi?
         </Link>

@@ -7,7 +7,7 @@ const steps = [
     title: "Simpan peluang",
     description:
       "Tambahkan lowongan yang menarik beserta posisi, perusahaan, gaji, dan tautannya.",
-    chip: "border-ink bg-accent text-ink",
+    chip: "border-ink bg-secondary text-ink",
   },
   {
     number: "02",
@@ -15,7 +15,7 @@ const steps = [
     title: "Kelola prosesnya",
     description:
       "Perbarui status, susun jadwal, dan simpan catatan penting setelah setiap interaksi.",
-    chip: "border-amber-900 bg-amber-300 text-amber-950",
+    chip: "border-amber-200 bg-amber-100 text-ink",
   },
   {
     number: "03",
@@ -23,7 +23,7 @@ const steps = [
     title: "Ambil langkah berikutnya",
     description:
       "Gunakan ringkasan dan tugas untuk fokus pada tindakan yang paling berarti hari ini.",
-    chip: "border-violet-900 bg-violet-600 text-white",
+    chip: "border-indigo-200 bg-indigo-500 text-white",
   },
 ] as const;
 
@@ -46,7 +46,7 @@ export function HowItWorks() {
               Alur 3 langkah yang bikin kamu konsisten, tanpa nambah kerjaan
               administratif.
             </p>
-            <div className="mt-6 inline-flex items-center gap-2 rounded-2xl border-2 border-ink bg-accent px-4 py-2.5 text-sm font-extrabold text-ink shadow-card">
+            <div className="mt-6 inline-flex items-center gap-2 rounded-2xl border-2 border-ink bg-secondary px-4 py-2.5 text-sm font-extrabold text-ink shadow-card">
               <Check size={16} /> Siap dalam hitungan menit
             </div>
           </div>
@@ -58,7 +58,7 @@ export function HowItWorks() {
                   key={step.number}
                   className="relative flex gap-4 rounded-[1.75rem] border-2 border-ink/10 bg-surface p-5 shadow-card transition duration-300 hover:-translate-y-1 hover:border-ink hover:shadow-lift sm:gap-6 sm:p-7"
                 >
-                  <span className="grid size-14 shrink-0 place-items-center rounded-3xl border-2 border-ink bg-primary-strong text-accent">
+                  <span className="grid size-14 shrink-0 place-items-center rounded-3xl border-2 border-ink bg-primary-strong text-white">
                     <Icon size={24} />
                   </span>
                   <div className="min-w-0">
@@ -76,7 +76,7 @@ export function HowItWorks() {
                   </div>
                   {index < steps.length - 1 ? (
                     <ArrowDown
-                      className="absolute -bottom-4 left-10 z-10 rounded-full border-2 border-ink bg-accent p-0.5 text-ink"
+                      className="absolute -bottom-4 left-10 z-10 rounded-full border-2 border-ink bg-secondary p-0.5 text-ink"
                       size={18}
                       aria-hidden="true"
                     />

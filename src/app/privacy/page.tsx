@@ -64,24 +64,24 @@ function LegalPage({
   return (
     <main
       lang="id"
-      className="min-h-screen bg-[#fbfcf8] font-sans text-slate-900"
+      className="min-h-screen bg-background font-sans text-slate-900"
     >
       <header className="border-b border-slate-200 bg-white/80 backdrop-blur">
         <div className="mx-auto flex h-18 max-w-5xl items-center justify-between px-5 sm:px-8">
           <Brand />
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-emerald-800"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-slate-800"
           >
             <ArrowLeft size={16} /> Beranda
           </Link>
         </div>
       </header>
       <article className="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24">
-        <p className="text-sm font-bold uppercase tracking-[0.18em] text-emerald-700">
+        <p className="text-sm font-bold uppercase tracking-[0.18em] text-slate-700">
           Informasi legal
         </p>
-        <h1 className="mt-4 text-4xl font-bold tracking-[-0.05em] text-[#10261f] sm:text-5xl">
+        <h1 className="mt-4 text-4xl font-bold tracking-[-0.05em] text-ink sm:text-5xl">
           {title}
         </h1>
         <p className="mt-5 text-lg leading-8 text-slate-600">{intro}</p>
@@ -91,8 +91,8 @@ function LegalPage({
         <div className="mt-12 grid gap-9">
           {sections.map((section, index) => (
             <section key={section.title}>
-              <h2 className="text-xl font-bold text-[#10261f]">
-                <span className="mr-2 text-emerald-600">
+              <h2 className="text-xl font-bold text-ink">
+                <span className="mr-2 text-slate-600">
                   {String(index + 1).padStart(2, "0")}.
                 </span>
                 {section.title}
@@ -103,11 +103,11 @@ function LegalPage({
             </section>
           ))}
         </div>
-        <div className="mt-12 rounded-2xl border border-emerald-200 bg-emerald-50 p-6">
-          <h2 className="font-bold text-emerald-950">
+        <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-6">
+          <h2 className="font-bold text-slate-950">
             Ada pertanyaan tentang privasi?
           </h2>
-          <p className="mt-2 text-sm leading-6 text-emerald-900/70">
+          <p className="mt-2 text-sm leading-6 text-slate-900/70">
             Hubungi kami melalui{" "}
             <a href="mailto:halo@jobtrack.id" className="font-bold underline">
               halo@jobtrack.id
