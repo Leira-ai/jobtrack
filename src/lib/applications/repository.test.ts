@@ -46,10 +46,12 @@ const query = (result: Result) => {
     "eq",
     "ilike",
     "limit",
+    "range",
   ]) {
     value[method] = vi.fn(() => value);
   }
-  value.order = vi.fn(async () => result);
+  value.order = vi.fn(() => value);
+  value.range = vi.fn(async () => result);
   value.single = vi.fn(async () => result);
   value.maybeSingle = vi.fn(async () => result);
   value.then = (resolve: (result: Result) => unknown) =>
@@ -101,6 +103,7 @@ describe("ApplicationsRepository", () => {
 
     expect(applications[0]?.company).toBe("Example Labs");
     expect(list.order).toHaveBeenCalledWith("updated_at", { ascending: false });
+    expect(list.range).toHaveBeenCalledWith(0, 199);
   });
 
   it("finds a company, creates an application, and reloads authoritative data", async () => {

@@ -28,11 +28,17 @@ const message = (error: { readonly message: string } | null): string =>
 export class ApplicationsRepository {
   constructor(private readonly supabase: ApplicationsSupabase) {}
 
-  async list(): Promise<readonly JobApplication[]> {
+  async list(options?: {
+    readonly limit?: number;
+    readonly offset?: number;
+  }): Promise<readonly JobApplication[]> {
+    const limit = Math.min(Math.max(options?.limit ?? 200, 1), 500);
+    const offset = Math.max(options?.offset ?? 0, 0);
     const { data, error } = await this.supabase
       .from("applications")
       .select(applicationSelect)
-      .order("updated_at", { ascending: false });
+      .order("updated_at", { ascending: false })
+      .range(offset, offset + limit - 1);
     if (error) throw new Error(message(error));
     return ((data ?? []) as unknown as ApplicationRecord[]).map(
       mapApplicationRecord,
